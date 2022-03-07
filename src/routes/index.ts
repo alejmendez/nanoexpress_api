@@ -1,8 +1,3 @@
-import { getRouter } from "../core/route";
-import ApiVersionController from "../controllers/ApiVersionController";
-
-getRouter().get("/api/v1/version", ApiVersionController.getVersion);
-
+import "./health.route";
 import "./auth.route";
 import "./users.route";
-

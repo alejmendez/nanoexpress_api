@@ -1,11 +1,17 @@
 import { getRouter } from "../core/route";
 
-import UserController from "../controllers/UserController";
+import {
+  findAll,
+  create,
+  findOne,
+  update,
+  remove,
+} from "../controllers/UserController";
 
 const route = getRouter();
 
-route.get("/api/v1/users", UserController.findAll);
-route.post("/api/v1/users", UserController.create);
-route.get("/api/v1/users/:userId", UserController.findOne);
-route.put("/api/v1/users/:userId", UserController.update);
-route.del("/api/v1/users/:userId", UserController.delete);
+route.get("/api/v1/users", findAll);
+route.post("/api/v1/users", create);
+route.get("/api/v1/users/:userId", findOne);
+route.put("/api/v1/users/:userId", update);
+route.del("/api/v1/users/:userId", remove);

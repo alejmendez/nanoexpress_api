@@ -1,4 +1,5 @@
 import winston, { transports } from "winston";
+import { config } from "../core/config";
 
 const levels = {
   error: 0,
@@ -28,7 +29,7 @@ const format: winston.Logform.Format = winston.format.combine(
 );
 
 const LOGGER: winston.Logger = winston.createLogger({
-  level: "debug",
+  level: config("logger.level"),
   levels,
   format,
   transports: [new transports.Console()],
