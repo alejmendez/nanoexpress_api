@@ -9,8 +9,8 @@ const LoggerMiddleware: any = (
   try {
     LOGGER.http(`[${req.method}] request on endpoint ${req.url}`);
     next();
-  } catch {
-    return res.status(500).json({ message: "Internal Error" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Error: middleware logger" });
   }
 };
 

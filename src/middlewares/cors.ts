@@ -17,7 +17,7 @@ const corsMiddleware: any = (
 
     return fn(rq, res, next);
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorizated" });
+    return res.status(500).json({ message: "Internal Error: middleware cors" });
   }
 };
 

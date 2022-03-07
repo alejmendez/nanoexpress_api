@@ -1,11 +1,15 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
 
-import { config } from "../core/config";
-
-const routesExcludes = config("jwt.unless", "").split(",");
-
 const isApplicationJson: any = (type: string) => {
   return type === "application/json";
+};
+
+const cleanBody: any = (req: IHttpRequest): any => {
+  let reqBody = req.body;
+  if (reqBody === undefined || reqBody === null || reqBody === "") {
+    return {};
+  }
+  return JSON.parse(reqBody.toString());
 };
 
 const bodyparser: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
@@ -16,14 +20,12 @@ const bodyparser: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
       next();
     }
 
-    const reqBody: any = req.body || {};
-    const bodyString: any = JSON.parse(reqBody.toString());
-
-    req.body = bodyString;
+    req.body = cleanBody(req);
 
     next();
-  } catch {
-    return res.status(401).json({ message: "Unauthorizated" });
+  } catch (error) {
+    console.log({ error });
+    return res.status(500).json({ message: "Internal Error: middleware bodyparser" });
   }
 };
 

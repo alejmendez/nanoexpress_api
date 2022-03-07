@@ -4,6 +4,7 @@ import { verify } from "jsonwebtoken";
 import { config } from "../core/config";
 
 const routesExcludes = config("jwt.unless", "").split(",");
+const jwtSecret = config("jwt.secret");
 
 const jwt: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
   try {
@@ -13,8 +14,7 @@ const jwt: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
 
     const headers: any = req.headers;
     const token = headers.authorization.split(" ")[1];
-    console.log({token});
-    const decoded = verify(token, config("jwt.secret"));
+    verify(token, jwtSecret);
 
     next();
   } catch (error) {
