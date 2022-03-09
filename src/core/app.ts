@@ -1,21 +1,37 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import nanoexpress from "nanoexpress";
+
 import { getNano } from "./nanoexpress";
 import { getRouter } from "./route";
 
+import { config } from "./config";
+import { initConnection, getDbConnection } from "./database";
+import LOGGER from "../lib/logger";
+
+import "../routes";
+
 import bodyparser from "../middlewares/bodyparser";
 import LoggerMiddleware from "../middlewares/logger";
-import jwt from "../middlewares/authenticate";
-import { config } from "./config";
-import LOGGER from "../lib/logger";
 import corsMiddleware from "../middlewares/cors";
+import jwt from "../middlewares/authenticate";
 
 class App {
   protected nano: nanoexpress.INanoexpressApp;
   protected route;
+
   constructor() {
     this.nano = getNano();
     this.route = getRouter();
+  }
+
+  public async init(clouser: () => void) {
     this.initMiddleware();
+    await initConnection();
+    this.route.init();
+    this.listen();
+    clouser();
   }
 
   public initMiddleware() {
@@ -23,14 +39,6 @@ class App {
     this.nano.use(bodyparser);
     this.nano.use(corsMiddleware);
     this.nano.use(jwt);
-  }
-
-  public getNanoInstance() {
-    return this.nano;
-  }
-
-  public getRoute() {
-    return this.route;
   }
 
   public listen() {
@@ -48,10 +56,11 @@ class App {
 
   public close() {
     this.nano.close();
+    LOGGER.debug("app is down");
   }
 }
 
 const AppInstance = new App();
 const getApp = () => AppInstance;
 
-export { getApp, getNano, getRouter };
+export { getApp, getNano, getRouter, getDbConnection };

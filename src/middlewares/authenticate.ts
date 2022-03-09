@@ -18,7 +18,6 @@ const jwt: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
 
     next();
   } catch (error) {
-    console.log({error});
     return res.status(401).json({ message: "Unauthorizated" });
   }
 };

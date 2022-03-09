@@ -24,7 +24,6 @@ const bodyparser: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
 
     next();
   } catch (error) {
-    console.log({ error });
     return res.status(500).json({ message: "Internal Error: middleware bodyparser" });
   }
 };
