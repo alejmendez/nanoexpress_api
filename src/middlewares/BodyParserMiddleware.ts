@@ -12,7 +12,7 @@ const cleanBody: any = (req: IHttpRequest): any => {
   return JSON.parse(reqBody.toString());
 };
 
-const bodyparser: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
+const BodyParserMiddleware: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
   try {
     const headers: any = req.headers;
     var shouldParse = isApplicationJson(headers["content-type"]);
@@ -24,8 +24,10 @@ const bodyparser: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
 
     next();
   } catch (error) {
-    return res.status(500).json({ message: "Internal Error: middleware bodyparser" });
+    return res
+      .status(500)
+      .json({ message: "Internal Error: middleware bodyparser" });
   }
 };
 
-export default bodyparser;
+export default BodyParserMiddleware;

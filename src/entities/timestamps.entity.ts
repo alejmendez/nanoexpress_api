@@ -1,13 +1,13 @@
-import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 export class Timestamps {
   @CreateDateColumn({
-    name: 'create_at',
+    name: "create_at",
   })
   createAt: Date;
 
   @UpdateDateColumn({
-    name: 'update_at',
+    name: "update_at",
   })
   updateAt: Date;
 }

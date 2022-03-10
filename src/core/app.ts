@@ -12,10 +12,10 @@ import LOGGER from "../lib/logger";
 
 import "../routes";
 
-import bodyparser from "../middlewares/bodyparser";
-import LoggerMiddleware from "../middlewares/logger";
-import corsMiddleware from "../middlewares/cors";
-import jwt from "../middlewares/authenticate";
+import BodyParserMiddleware from "../middlewares/BodyParserMiddleware";
+import LoggerMiddleware from "../middlewares/LoggerMiddleware";
+import CorsMiddleware from "../middlewares/CorsMiddleware";
+import JwtMiddleware from "../middlewares/JwtMiddleware";
 
 class App {
   protected nano: nanoexpress.INanoexpressApp;
@@ -36,9 +36,9 @@ class App {
 
   public initMiddleware() {
     this.nano.use(LoggerMiddleware);
-    this.nano.use(bodyparser);
-    this.nano.use(corsMiddleware);
-    this.nano.use(jwt);
+    this.nano.use(BodyParserMiddleware);
+    this.nano.use(CorsMiddleware);
+    this.nano.use(JwtMiddleware);
   }
 
   public listen() {

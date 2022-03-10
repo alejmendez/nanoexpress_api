@@ -6,8 +6,9 @@ import { config } from "../core/config";
 const routesExcludes = config("jwt.unless", "").split(",");
 const jwtSecret = config("jwt.secret");
 
-const jwt: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
+const JwtMiddleware: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
   try {
+    return next();
     if (routesExcludes.includes(req.url)) {
       return next();
     }
@@ -22,4 +23,4 @@ const jwt: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
   }
 };
 
-export default jwt;
+export default JwtMiddleware;

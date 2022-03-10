@@ -22,25 +22,25 @@ class Router {
     return this.listRoutes.map(([method, path, ...params]) => {
       switch (method) {
         case "get":
-          this.app.get(path, ...params)
+          this.app.get(path, ...params);
           break;
         case "post":
-          this.app.post(path, ...params)
+          this.app.post(path, ...params);
           break;
         case "put":
-          this.app.put(path, ...params)
+          this.app.put(path, ...params);
           break;
         case "patch":
-          this.app.patch(path, ...params)
+          this.app.patch(path, ...params);
           break;
         case "del":
-          this.app.del(path, ...params)
+          this.app.del(path, ...params);
           break;
         case "options":
-          this.app.options(path, ...params)
+          this.app.options(path, ...params);
           break;
         case "any":
-          this.app.any(path, ...params)
+          this.app.any(path, ...params);
           break;
       }
     });

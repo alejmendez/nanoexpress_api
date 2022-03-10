@@ -1,4 +1,5 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
+import UserRequest from "../dto/UserResquest.dto";
 import UserService from "../services/user.service";
 
 const findAll = async (req: IHttpRequest, res: IHttpResponse) => {
@@ -15,22 +16,17 @@ const findOne = async (req: IHttpRequest, res: IHttpResponse) => {
 };
 
 const create = async (req: IHttpRequest, res: IHttpResponse) => {
-  const { username, email, password, role }: any = req.body;
+  const userRequest = new UserRequest(req.body);
   const userService = new UserService();
-  const user = await userService.create({
-    username,
-    email,
-    password,
-    role,
-  });
+  const user = await userService.create(userRequest);
   return res.status(201).json(user);
 };
 
 const update = async (req: IHttpRequest, res: IHttpResponse) => {
   const { id }: any = req.params;
-  const reqBody: any = req.body;
+  const userRequest = new UserRequest(req.body);
   const userService = new UserService();
-  const { user }: any = await userService.update(id, reqBody);
+  const { user }: any = await userService.update(id, userRequest);
   return res.status(200).json({ message: "user updated successfully" });
 };
 

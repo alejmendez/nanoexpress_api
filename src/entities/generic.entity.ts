@@ -3,24 +3,24 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 export class AppEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @CreateDateColumn({
-    name: 'create_at',
+    name: "create_at",
   })
   createAt: Date;
 
   @UpdateDateColumn({
-    name: 'update_at',
+    name: "update_at",
   })
   updateAt: Date;
 
   @DeleteDateColumn({
-    name: 'delete_at',
+    name: "delete_at",
   })
   deleteAt: Date;
 }

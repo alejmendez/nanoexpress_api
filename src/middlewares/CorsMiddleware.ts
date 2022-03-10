@@ -1,5 +1,6 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import cors, { CorsRequest } from "cors";
+import LOGGER from "../lib/logger";
 
 const corsMiddleware: any = (
   req: IHttpRequest,
@@ -17,6 +18,8 @@ const corsMiddleware: any = (
 
     return fn(rq, res, next);
   } catch (error) {
+    LOGGER.error(error);
+    console.log(error);
     return res.status(500).json({ message: "Internal Error: middleware cors" });
   }
 };

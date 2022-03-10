@@ -10,12 +10,12 @@ export const configDatabase = {
   logger: "file",
   storage: process.env["DB_STORAGE"] ?? "./nanodb.sqlite",
 
-  entities: ["src/app/entities/**/*.ts"],
+  entities: ["src/entities/**/*.ts"],
   migrations: ["src/database/migrations/**/*.ts"],
-  subscribers: ["src/app/subscribers/**/*.ts"],
+  subscribers: ["src/subscribers/**/*.ts"],
   cli: {
-    entitiesDir: "src/app/entities",
+    entitiesDir: "src/entities",
     migrationsDir: "src/database/migrations",
-    subscribersDir: "src/app/subscribers",
+    subscribersDir: "src/subscribers",
   },
 };

@@ -11,7 +11,9 @@ const initConnection = async () => {
     }
 
     LOGGER.info("Connection to database established");
-    connection.synchronize();
+
+    const resultsynchronize = await connection.synchronize();
+    LOGGER.info("Database synchronized");
 
     return connection;
   } catch (error) {
