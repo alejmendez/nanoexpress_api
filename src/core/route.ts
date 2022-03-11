@@ -1,13 +1,14 @@
-import nanoexpress, { HttpRoute, INanoexpressApp } from "nanoexpress";
+import nanoexpress, { HttpRoute } from "nanoexpress";
+import { padEnd } from "lodash";
+import LOGGER from "../lib/logger";
 import { getNano } from "./nanoexpress";
 
 class Router {
   protected app: nanoexpress.INanoexpressApp;
-  protected listRoutes: Array<any>;
+  protected listRoutes: Array<any> = [];
 
   constructor() {
     this.app = getNano();
-    this.listRoutes = [];
   }
 
   public getListRoutes() {
@@ -25,6 +26,23 @@ class Router {
         await this.registerEndPoint(method, path, handler);
       })
     );
+  }
+
+  public initMessage() {
+    LOGGER.info("list of registered routes: ");
+    let maxLengthHandlerName = 0;
+    this.listRoutes.map((route) => {
+      const handlerNameLength = route[2].length;
+      if (handlerNameLength > maxLengthHandlerName) {
+        maxLengthHandlerName = handlerNameLength;
+      }
+    });
+    maxLengthHandlerName++;
+    this.listRoutes.map(([method, path, handlerName]) => {
+      method = padEnd(method.toUpperCase(), 5);
+      handlerName = padEnd(handlerName, maxLengthHandlerName);
+      LOGGER.info(`${method} ${handlerName} ${path}`);
+    });
   }
 
   protected async group(groupRoute: any) {

@@ -24,6 +24,32 @@ class App {
   public async init(clouser: () => void) {
     await this.initInstances();
 
+    this.listen();
+    clouser();
+  }
+
+  protected async initInstances() {
+    this.nano = getNano();
+    await initConnection();
+    this.initMiddleware();
+    await this.initRouter();
+    this.initErrorHandler();
+  }
+
+  public initMiddleware() {
+    this.nano.use(LoggerMiddleware);
+    this.nano.use(BodyParserMiddleware);
+    this.nano.use(CorsMiddleware);
+    this.nano.use(JwtMiddleware);
+  }
+
+  protected async initRouter() {
+    this.route = new Router();
+    await this.route.init(listRoutes);
+    this.route.initMessage();
+  }
+
+  protected initErrorHandler() {
     this.nano.setErrorHandler(
       (err: Error, req: IHttpRequest, res: IHttpResponse): IHttpResponse => {
         console.log(err);
@@ -34,24 +60,6 @@ class App {
         });
       }
     );
-
-    this.listen();
-    clouser();
-  }
-
-  protected async initInstances() {
-    this.nano = getNano();
-    await initConnection();
-    this.initMiddleware();
-    this.route = new Router();
-    await this.route.init(listRoutes);
-  }
-
-  public initMiddleware() {
-    this.nano.use(LoggerMiddleware);
-    this.nano.use(BodyParserMiddleware);
-    this.nano.use(CorsMiddleware);
-    this.nano.use(JwtMiddleware);
   }
 
   public getRouter() {
@@ -63,17 +71,12 @@ class App {
     const url = config("server.url");
     this.nano.listen(port);
 
-    LOGGER.debug("list of registered routes");
-    this.route.getListRoutes().map(([method, path, handlerName]) => {
-      LOGGER.debug(`[${method.toUpperCase()}][${handlerName}] ${path}`);
-    });
-
-    LOGGER.debug(`app is running at ${url}:${port}`);
+    LOGGER.info(`app is running at ${url}:${port}`);
   }
 
   public close() {
     this.nano.close();
-    LOGGER.debug("app is down");
+    LOGGER.info("app is down");
   }
 }
 
