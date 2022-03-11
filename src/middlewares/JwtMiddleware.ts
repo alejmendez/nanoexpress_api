@@ -3,12 +3,15 @@ import { verify } from "jsonwebtoken";
 
 import { config } from "../core/config";
 
-const routesExcludes = config("jwt.unless", "").split(",");
+const routesExcludes = config("jwt.unless", []);
 const jwtSecret = config("jwt.secret");
 
-const JwtMiddleware: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
+const JwtMiddleware: any = (
+  req: IHttpRequest,
+  res: IHttpResponse,
+  next: any
+) => {
   try {
-    return next();
     if (routesExcludes.includes(req.url)) {
       return next();
     }

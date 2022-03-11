@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { hash } from "bcrypt";
 
 const saltRoundsUsedToGeneratePasswords = 12;
 
@@ -13,7 +13,7 @@ const hashPassword = async (password: string): Promise<string> => {
 
     return String(hashedPassword);
   } catch (error) {
-    return '';
+    return "";
   }
 };
 

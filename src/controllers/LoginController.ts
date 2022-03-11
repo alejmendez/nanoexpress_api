@@ -2,10 +2,10 @@ import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import LoginService from "../services/auth.service";
 import { config } from "../core/config";
 
+const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {
   try {
     const { email, password }: any = req.body;
-    const loginService = new LoginService();
     const token = await loginService.login(email, password);
 
     if (!token) {

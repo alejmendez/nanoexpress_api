@@ -12,7 +12,11 @@ const cleanBody: any = (req: IHttpRequest): any => {
   return JSON.parse(reqBody.toString());
 };
 
-const BodyParserMiddleware: any = (req: IHttpRequest, res: IHttpResponse, next: any) => {
+const BodyParserMiddleware: any = (
+  req: IHttpRequest,
+  res: IHttpResponse,
+  next: any
+) => {
   try {
     const headers: any = req.headers;
     var shouldParse = isApplicationJson(headers["content-type"]);

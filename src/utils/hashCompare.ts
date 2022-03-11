@@ -1,6 +1,9 @@
-import { compare } from 'bcrypt';
+import { compare } from "bcrypt";
 
-const hashCompare = async (password: string, passwordTarget: string): Promise<boolean> => {
+const hashCompare = async (
+  password: string,
+  passwordTarget: string
+): Promise<boolean> => {
   try {
     const isMatch = await new Promise((resolve, reject) => {
       compare(password, passwordTarget, function (err, hash) {

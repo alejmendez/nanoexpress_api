@@ -1,4 +1,4 @@
-import nanoexpress, { INanoexpressApp } from "nanoexpress";
+import nanoexpress, { HttpRoute, INanoexpressApp } from "nanoexpress";
 import { getNano } from "./nanoexpress";
 
 class Router {
@@ -10,73 +10,73 @@ class Router {
     this.listRoutes = [];
   }
 
-  public addToListRoute(method: string, path: string, ...params: any) {
-    this.listRoutes.push([method, path, ...params]);
-  }
-
   public getListRoutes() {
     return this.listRoutes;
   }
 
-  public init() {
-    return this.listRoutes.map(([method, path, ...params]) => {
-      switch (method) {
-        case "get":
-          this.app.get(path, ...params);
-          break;
-        case "post":
-          this.app.post(path, ...params);
-          break;
-        case "put":
-          this.app.put(path, ...params);
-          break;
-        case "patch":
-          this.app.patch(path, ...params);
-          break;
-        case "del":
-          this.app.del(path, ...params);
-          break;
-        case "options":
-          this.app.options(path, ...params);
-          break;
-        case "any":
-          this.app.any(path, ...params);
-          break;
-      }
-    });
+  public async init(listRoutes: any[]) {
+    await Promise.all(
+      listRoutes.map(async (route) => {
+        if (route.group) {
+          return await this.group(route);
+        }
+
+        const { method, path, handler } = route;
+        await this.registerEndPoint(method, path, handler);
+      })
+    );
   }
 
-  public get(path: string, ...params: any): INanoexpressApp {
-    this.addToListRoute("get", path, ...params);
-    return this.app.get(path, ...params);
+  protected async group(groupRoute: any) {
+    const pathGroup = groupRoute.path;
+    const groupName = groupRoute.path;
+    const routes = groupRoute.routes;
+
+    return await Promise.all(
+      routes.map(async (route: any) => {
+        let { method, path, handler } = route;
+        path = `${pathGroup}/${path}`;
+        return await this.registerEndPoint(method, path, handler);
+      })
+    );
   }
 
-  public post(path: string, ...params: any) {
-    this.addToListRoute("post", path, ...params);
+  protected async registerEndPoint(
+    method: string,
+    path: string,
+    handlerName: string
+  ) {
+    const handler = await this.getHandler(handlerName);
+    path = path.replace(/\/\//g, "/").replace(/\/+$/, "");
+    this.listRoutes.push([method, path, handlerName]);
+    switch (method) {
+      case "get":
+        return this.app.get(path, handler);
+      case "post":
+        return this.app.post(path, handler);
+      case "put":
+        return this.app.put(path, handler);
+      case "patch":
+        return this.app.patch(path, handler);
+      case "del":
+        return this.app.del(path, handler);
+      case "options":
+        return this.app.options(path, handler);
+      case "any":
+        return this.app.any(path, handler);
+    }
   }
 
-  public put(path: string, ...params: any) {
-    this.addToListRoute("put", path, ...params);
+  protected async getHandler(handler: string): Promise<HttpRoute> {
+    const [controllerName, handlerName] = handler.split("@");
+    const controller = await this.getController(controllerName);
+    return controller[handlerName];
   }
 
-  public patch(path: string, ...params: any) {
-    this.addToListRoute("patch", path, ...params);
-  }
-
-  public del(path: string, ...params: any) {
-    this.addToListRoute("del", path, ...params);
-  }
-
-  public options(path: string, ...params: any) {
-    this.addToListRoute("options", path, ...params);
-  }
-
-  public any(path: string, ...params: any) {
-    this.addToListRoute("any", path, ...params);
+  protected async getController(controllerName: string) {
+    const controller = await import(`../controllers/${controllerName}`);
+    return controller;
   }
 }
 
-const routeInstance = new Router();
-const getRouter = () => routeInstance;
-
-export { getRouter };
+export { Router };

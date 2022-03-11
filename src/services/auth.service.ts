@@ -4,6 +4,7 @@ import { getRepository } from "typeorm";
 import { config } from "../core/config";
 
 import { User } from "../entities/user.entity";
+import { hashCompare } from "../utils";
 
 class LoginService {
   protected repository: any;
@@ -19,7 +20,15 @@ class LoginService {
       email,
     });
 
-    if (!user || !this.passwordsMatch(password, user.password)) {
+    if (!user) {
+      return false;
+    }
+    const isPasswordsMatched = await this.passwordsMatch(
+      password,
+      user.password
+    );
+
+    if (!isPasswordsMatched) {
       return false;
     }
 
@@ -27,8 +36,11 @@ class LoginService {
     return token;
   }
 
-  protected passwordsMatch(password: string, password2: string): boolean {
-    return password === password2;
+  protected async passwordsMatch(
+    password: string,
+    password2: string
+  ): Promise<boolean> {
+    return await hashCompare(password, password2);
   }
 
   protected generateToken(user: any): string {
@@ -42,6 +54,15 @@ class LoginService {
       expiresIn: config("jwt.expiresIn"),
       algorithm: config("jwt.algorithm"),
     });
+  }
+
+  private static instance: LoginService;
+  public static getInstance(): LoginService {
+    if (!LoginService.instance) {
+      LoginService.instance = new LoginService();
+    }
+
+    return LoginService.instance;
   }
 }
 

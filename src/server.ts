@@ -2,7 +2,7 @@ import { getApp } from "./core/app";
 
 export const app = getApp();
 
-getApp().init(() => {
+app.init(() => {
   process.on("SIGINT", () => {
     app.close();
   });

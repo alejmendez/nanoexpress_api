@@ -1,17 +1,33 @@
-import { getRouter } from "../core/route";
-
-import {
-  findAll,
-  create,
-  findOne,
-  update,
-  remove,
-} from "../controllers/UserController";
-
-const route = getRouter();
-
-route.get("/api/v1/users", findAll);
-route.post("/api/v1/users", create);
-route.get("/api/v1/users/:id", findOne);
-route.put("/api/v1/users/:id", update);
-route.del("/api/v1/users/:id", remove);
+export default [
+  {
+    group: "users",
+    path: "/api/v1/users",
+    routes: [
+      {
+        method: "get",
+        path: "/",
+        handler: "UserController@findAll",
+      },
+      {
+        method: "post",
+        path: "/",
+        handler: "UserController@create",
+      },
+      {
+        method: "get",
+        path: "/:id",
+        handler: "UserController@findOne",
+      },
+      {
+        method: "put",
+        path: "/:id",
+        handler: "UserController@update",
+      },
+      {
+        method: "del",
+        path: "/:id",
+        handler: "UserController@remove",
+      },
+    ],
+  },
+];

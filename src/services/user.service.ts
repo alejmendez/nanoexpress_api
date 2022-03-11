@@ -31,7 +31,7 @@ class UserService {
     user.password = await hashPassword(user.password);
 
     user.verificationToken = generateRandomString(
-      this.numberOfCharactersUsedToGenerateUserValidationToken,
+      this.numberOfCharactersUsedToGenerateUserValidationToken
     );
     return this.repository.save(user);
   }
@@ -63,6 +63,15 @@ class UserService {
     } catch (error) {
       return false;
     }
+  }
+
+  private static instance: UserService;
+  public static getInstance(): UserService {
+    if (!UserService.instance) {
+      UserService.instance = new UserService();
+    }
+
+    return UserService.instance;
   }
 }
 

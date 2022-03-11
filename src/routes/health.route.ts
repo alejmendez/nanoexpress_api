@@ -1,5 +1,7 @@
-import { getRouter } from "../core/route";
-import { getVersion } from "../controllers/HealthController";
-
-const route = getRouter();
-route.get("/api/v1/version", getVersion);
+export default [
+  {
+    method: "get",
+    path: "/api/v1/version",
+    handler: "HealthController@getVersion",
+  },
+];
