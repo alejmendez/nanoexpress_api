@@ -16,6 +16,7 @@ import BodyParserMiddleware from "../middlewares/BodyParserMiddleware";
 import LoggerMiddleware from "../middlewares/LoggerMiddleware";
 import CorsMiddleware from "../middlewares/CorsMiddleware";
 import JwtMiddleware from "../middlewares/JwtMiddleware";
+import { EntityNotFoundError } from "typeorm";
 
 class App {
   protected nano: nanoexpress.INanoexpressApp;
@@ -52,11 +53,16 @@ class App {
   protected initErrorHandler() {
     this.nano.setErrorHandler(
       (err: Error, req: IHttpRequest, res: IHttpResponse): IHttpResponse => {
-        console.log(err);
-        return res.status(500).json({
-          status: "error",
-          status_code: 500,
-          message: err,
+        let message = err.message;
+        let status = 500;
+
+        if (err instanceof EntityNotFoundError) {
+          message = "Error on find entity";
+          status = 404;
+        }
+
+        return res.status(status).json({
+          message,
         });
       }
     );

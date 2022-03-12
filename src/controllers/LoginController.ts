@@ -1,6 +1,6 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import LoginService from "../services/auth.service";
 import { config } from "../core/config";
+import LoginService from "../services/auth.service";
 
 const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {
@@ -19,11 +19,13 @@ const login = async (req: IHttpRequest, res: IHttpResponse) => {
 };
 
 const responseUnauthorizated = (res: IHttpResponse) => {
-  return res.status(401).json({ message: "Unauthorizated" });
+  return res
+    .status(401)
+    .json({ message: "Unauthorizated" });
 };
 
 const responseWithToken = (res: IHttpResponse, token: string) => {
-  return res.status(200).json({
+  return res.json({
     token,
     token_type: "bearer",
     expires_in: config("jwt.expiresIn"),

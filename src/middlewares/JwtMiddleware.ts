@@ -1,6 +1,7 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import { verify } from "jsonwebtoken";
 
+import { HttpStatus } from "../enums/http-status.enum";
 import { config } from "../core/config";
 
 const routesExcludes = config("jwt.unless", []);
@@ -22,7 +23,9 @@ const JwtMiddleware: any = (
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorizated" });
+    return res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ message: "Unauthorizated" });
   }
 };
 

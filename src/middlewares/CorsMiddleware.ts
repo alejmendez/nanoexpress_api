@@ -19,7 +19,9 @@ const corsMiddleware: any = (
     return fn(rq, res, next);
   } catch (error) {
     LOGGER.error(error);
-    return res.status(500).json({ message: "Internal Error: middleware cors" });
+    return res
+      .status(500)
+      .json({ message: "Internal Error: middleware cors" });
   }
 };
 

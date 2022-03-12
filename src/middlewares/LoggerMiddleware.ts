@@ -1,5 +1,5 @@
-import LOGGER from "../lib/logger";
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
+import LOGGER from "../lib/logger";
 
 const LoggerMiddleware: any = (
   req: IHttpRequest,
