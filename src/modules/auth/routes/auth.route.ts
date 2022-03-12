@@ -7,6 +7,6 @@ export default [
   {
     method: "post",
     path: "/api/v1/auth/logout",
-    handler: "LogoutController@logout",
+    handler: "LoginController@logout",
   },
 ];

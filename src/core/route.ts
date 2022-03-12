@@ -6,9 +6,13 @@ import { getNano } from "./nanoexpress";
 class Router {
   protected app: nanoexpress.INanoexpressApp;
   protected listRoutes: Array<any> = [];
+  protected config: any = {
+    controllersPath: "../controllers/",
+  };
 
-  constructor() {
+  constructor(config: any = {}) {
     this.app = getNano();
+    this.config = config;
   }
 
   public getListRoutes() {
@@ -29,7 +33,6 @@ class Router {
   }
 
   public initMessage() {
-    LOGGER.info("list of registered routes: ");
     let maxLengthHandlerName = 0;
     this.listRoutes.map((route) => {
       const handlerNameLength = route[2].length;
@@ -92,7 +95,9 @@ class Router {
   }
 
   protected async getController(controllerName: string) {
-    const controller = await import(`../controllers/${controllerName}`);
+    const controller = await import(
+      `${this.config.controllersPath}/${controllerName}`
+    );
     return controller;
   }
 }

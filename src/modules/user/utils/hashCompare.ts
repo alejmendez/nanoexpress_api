@@ -5,13 +5,7 @@ const hashCompare = async (
   passwordTarget: string
 ): Promise<boolean> => {
   try {
-    const isMatch = await new Promise((resolve, reject) => {
-      compare(password, passwordTarget, function (err, hash) {
-        if (err) reject(err);
-        resolve(hash);
-      });
-    });
-
+    const isMatch = await compare(password, passwordTarget);
     return isMatch === true;
   } catch (error) {
     return Promise.resolve(false);

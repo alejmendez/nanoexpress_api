@@ -10,30 +10,30 @@ import { config } from "./config";
 import { initConnection, getDbConnection } from "./database";
 import LOGGER from "../lib/logger";
 
-import listRoutes from "../routes";
-
 import BodyParserMiddleware from "../middlewares/BodyParserMiddleware";
 import LoggerMiddleware from "../middlewares/LoggerMiddleware";
 import CorsMiddleware from "../middlewares/CorsMiddleware";
 import JwtMiddleware from "../middlewares/JwtMiddleware";
 import { EntityNotFoundError } from "typeorm";
+import modules from "./modules";
 
 class App {
   protected nano: nanoexpress.INanoexpressApp;
   protected route: Router;
+  protected modules: modules;
 
-  public async init(clouser: () => void) {
+  public async init(callback: () => void) {
     await this.initInstances();
 
     this.listen();
-    clouser();
+    callback();
   }
 
   protected async initInstances() {
     this.nano = getNano();
     await initConnection();
     this.initMiddleware();
-    await this.initRouter();
+    await this.initModules();
     this.initErrorHandler();
   }
 
@@ -44,10 +44,9 @@ class App {
     this.nano.use(JwtMiddleware);
   }
 
-  protected async initRouter() {
-    this.route = new Router();
-    await this.route.init(listRoutes);
-    this.route.initMessage();
+  protected async initModules() {
+    this.modules = new modules();
+    await this.modules.init();
   }
 
   protected initErrorHandler() {

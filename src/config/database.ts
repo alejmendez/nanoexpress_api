@@ -10,7 +10,7 @@ export const configDatabase = {
   logger: "file",
   storage: process.env["DB_STORAGE"] ?? "./nanodb.sqlite",
 
-  entities: ["src/entities/**/*.ts"],
+  entities: ["src/**/entities/*.ts"],
   migrations: ["src/database/migrations/**/*.ts"],
   subscribers: ["src/subscribers/**/*.ts"],
   cli: {

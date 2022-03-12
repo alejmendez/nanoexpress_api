@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import UserRequest from "../dto/UserResquest.dto";
+import UserRequest from "../dto/UserRequest.dto";
 
 import { User } from "../entities/user.entity";
 import { generateRandomString, hashPassword } from "../utils";

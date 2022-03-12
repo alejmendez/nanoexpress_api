@@ -1,0 +1,14 @@
+[
+  {
+    "name": "auth",
+    "description": "Module auth"
+  },
+  {
+    "name": "health",
+    "description": "Module health"
+  },
+  {
+    "name": "user",
+    "description": "Module user"
+  }
+]

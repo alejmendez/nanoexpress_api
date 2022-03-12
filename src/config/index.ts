@@ -4,6 +4,7 @@ import { configLogger } from "./logger";
 import { configMailer } from "./mailer";
 import { configJwt } from "./jwt";
 import { configCache } from "./cache";
+import { configModule } from "./module";
 
 export const generalConfig = {
   database: configDatabase,
@@ -12,4 +13,5 @@ export const generalConfig = {
   mailer: configMailer,
   jwt: configJwt,
   cache: configCache,
+  module: configModule,
 };

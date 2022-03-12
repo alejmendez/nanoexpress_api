@@ -1,7 +1,8 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import UserResponse from "../dto/UserResponse.dto";
-import UserRequest from "../dto/UserResquest.dto";
 import UserService from "../services/user.service";
+
+import UserResponse from "../dto/UserResponse.dto";
+import UserRequest from "../dto/UserRequest.dto";
 
 const userService = new UserService();
 const findAll = async (_req: IHttpRequest, res: IHttpResponse) => {

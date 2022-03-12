@@ -1,9 +1,9 @@
 import { sign } from "jsonwebtoken";
 
-import { config } from "../core/config";
+import { config } from "../../../core/config";
 
-import { hashCompare } from "../utils";
-import UserService from "./user.service";
+import { hashCompare } from "../../../modules/user/utils";
+import UserService from "../../../modules/user/services/user.service";
 
 class LoginService {
   protected userService: UserService;
