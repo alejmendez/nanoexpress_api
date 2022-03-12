@@ -19,9 +19,7 @@ const login = async (req: IHttpRequest, res: IHttpResponse) => {
 };
 
 const responseUnauthorizated = (res: IHttpResponse) => {
-  return res
-    .status(401)
-    .json({ message: "Unauthorizated" });
+  return res.status(401).json({ message: "Unauthorizated" });
 };
 
 const responseWithToken = (res: IHttpResponse, token: string) => {

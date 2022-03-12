@@ -50,8 +50,20 @@ class UserService {
   }
 
   public async update(id: string, data: UserRequest) {
-    const user = await this.repository.findOne(id);
-    this.repository.merge(user, data);
+    let user = await this.findOne(id);
+
+    if (user.email !== data.email) {
+      const existUserWithEmail = await this.existUserWithEmail(data.email);
+      if (existUserWithEmail) {
+        throw new Error(`There is already a user with the email ${data.email}`);
+      }
+    }
+
+    if (data.password !== "" && data.password !== undefined) {
+      data.password = await hashPassword(data.password);
+    }
+
+    user = this.repository.merge(user, data);
     return this.repository.save(user);
   }
 
@@ -63,15 +75,6 @@ class UserService {
     } catch (error) {
       return false;
     }
-  }
-
-  private static instance: UserService;
-  public static getInstance(): UserService {
-    if (!UserService.instance) {
-      UserService.instance = new UserService();
-    }
-
-    return UserService.instance;
   }
 }
 

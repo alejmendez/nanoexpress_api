@@ -1,24 +1,21 @@
 import { sign } from "jsonwebtoken";
-import { getRepository } from "typeorm";
 
 import { config } from "../core/config";
 
-import { User } from "../entities/user.entity";
 import { hashCompare } from "../utils";
+import UserService from "./user.service";
 
 class LoginService {
-  protected repository: any;
+  protected userService: UserService;
   constructor() {
-    this.repository = getRepository(User);
+    this.userService = new UserService();
   }
 
   public async login(
     email: string,
     password: string
   ): Promise<boolean | string> {
-    const user: User = await this.repository.findOne({
-      email,
-    });
+    const user = await this.userService.findOneByEmail(email);
 
     if (!user) {
       return false;
