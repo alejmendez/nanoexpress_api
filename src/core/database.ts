@@ -12,7 +12,7 @@ const initConnection = async () => {
 
     LOGGER.info("Connection to database established");
 
-    const resultsynchronize = await connection.synchronize();
+    await connection.synchronize();
     LOGGER.info("Database synchronized");
 
     return connection;

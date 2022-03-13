@@ -1,10 +1,11 @@
 import { hash } from "bcrypt";
+import { config } from "../../../core/config";
 
-const saltRoundsUsedToGeneratePasswords = 12;
+const saltForPasswords = Number(config("user.saltForPasswords"));
 
 const hashPassword = async (password: string): Promise<string> => {
   try {
-    const hashedPassword = await hash(password, saltRoundsUsedToGeneratePasswords);
+    const hashedPassword = await hash(password, saltForPasswords);
     return String(hashedPassword);
   } catch (error) {
     return "";

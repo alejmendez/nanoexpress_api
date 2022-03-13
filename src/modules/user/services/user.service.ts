@@ -1,12 +1,14 @@
 import { getRepository } from "typeorm";
+import { config } from "../../../core/config";
 import UserRequest from "../dto/UserRequest.dto";
 
 import { User } from "../entities/user.entity";
 import { generateRandomString, hashPassword } from "../utils";
 
+const validationTokenSize = Number(config("user.validationTokenSize"));
 class UserService {
   protected repository: any;
-  readonly numberOfCharactersUsedToGenerateUserValidationToken = 64;
+  protected validationTokenSize: Number = validationTokenSize;
 
   constructor() {
     this.repository = getRepository(User);
@@ -30,9 +32,7 @@ class UserService {
 
     user.password = await hashPassword(user.password);
 
-    user.verificationToken = generateRandomString(
-      this.numberOfCharactersUsedToGenerateUserValidationToken
-    );
+    user.verificationToken = generateRandomString(this.validationTokenSize);
     return this.repository.save(user);
   }
 

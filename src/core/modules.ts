@@ -1,5 +1,5 @@
 import LOGGER from "../lib/logger";
-import { config } from "./config";
+import { addConfig, config } from "./config";
 import { Router } from "./route";
 
 class modules {
@@ -22,9 +22,22 @@ class modules {
 
     await Promise.all(
       this.modules.map(async (module: any) => {
+        await this.loadModuleConfig(module);
         await this.loadModuleRouter(module);
       })
     );
+  }
+
+  protected async loadModuleConfig(module: any) {
+    const configContent = await this.getConfigFile(module);
+    addConfig(module.name, configContent);
+  }
+
+  protected async getConfigFile(module: any) {
+    const { name } = module;
+    const routesPath = `../${this.paths.modules}/${name}/${this.paths.config}/`;
+    const importedFile = await import(routesPath);
+    return importedFile.default;
   }
 
   protected async readModulesJson() {
@@ -37,13 +50,13 @@ class modules {
 
   protected async loadModuleRouter(module: any) {
     const { name } = module;
-    const listRoutes = await this.getRoutesFile(module);
+    const routesContent = await this.getRoutesFile(module);
     const controllersPath = `../${this.paths.modules}/${name}/${this.paths.controllers}/`;
     const route = new Router({
       controllersPath,
     });
     LOGGER.info(`Registering routes for the ${name} module...`);
-    await route.init(listRoutes);
+    await route.init(routesContent);
     route.initMessage();
   }
 

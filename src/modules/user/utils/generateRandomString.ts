@@ -3,7 +3,7 @@ const charactersUsedToGenerateRandomStrings =
 const charactersUsedToGenerateRandomStringsLength =
   charactersUsedToGenerateRandomStrings.length;
 
-const generateRandomString = (length = 10): string => {
+const generateRandomString = (length: Number = 10): string => {
   let result = "";
   for (let i = 0; i < length; i++) {
     result += charactersUsedToGenerateRandomStrings.charAt(
