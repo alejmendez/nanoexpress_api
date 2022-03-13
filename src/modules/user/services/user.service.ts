@@ -3,6 +3,8 @@ import { config } from "../../../core/config";
 import UserRequest from "../dto/UserRequest.dto";
 
 import { User } from "../entities/user.entity";
+import ThereIsAlreadyAUserWithThatEmail from "../exceptions/ThereIsAlreadyAUserWithThatEmail";
+import UserNotFound from "../exceptions/UserNotFound";
 import { generateRandomString, hashPassword } from "../utils";
 
 const validationTokenSize = Number(config("user.validationTokenSize"));
@@ -20,7 +22,11 @@ class UserService {
   }
 
   public async findOne(id: string) {
-    return await this.repository.findOneOrFail(id);
+    const user = await this.repository.findOne(id);
+    if (!user) {
+      throw new UserNotFound();
+    }
+    return user;
   }
 
   public async create(data: UserRequest) {
@@ -41,12 +47,12 @@ class UserService {
     return user !== null;
   }
 
-  async findOneByEmail(email: string): Promise<User | null> {
+  async findOneByEmail(email: string): Promise<User> {
     const user = await this.repository.findOne({ email });
-    if (user) {
-      return user;
+    if (!user) {
+      throw new UserNotFound();
     }
-    return null;
+    return user;
   }
 
   public async update(id: string, data: UserRequest) {
@@ -55,7 +61,7 @@ class UserService {
     if (user.email !== data.email) {
       const existUserWithEmail = await this.existUserWithEmail(data.email);
       if (existUserWithEmail) {
-        throw new Error(`There is already a user with the email ${data.email}`);
+        throw new ThereIsAlreadyAUserWithThatEmail(data.email);
       }
     }
 
@@ -68,13 +74,9 @@ class UserService {
   }
 
   public async remove(id: string) {
-    try {
-      const user = await this.findOne(id);
-      await this.repository.softDelete(id);
-      return true;
-    } catch (error) {
-      return false;
-    }
+    await this.findOne(id);
+    await this.repository.softDelete(id);
+    return true;
   }
 }
 

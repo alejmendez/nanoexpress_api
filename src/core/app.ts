@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import nanoexpress, { IHttpRequest, IHttpResponse } from "nanoexpress";
+import nanoexpress from "nanoexpress";
 
 import { getNano } from "./nanoexpress";
 import { Router } from "./route";
@@ -14,8 +14,9 @@ import BodyParserMiddleware from "../middlewares/BodyParserMiddleware";
 import LoggerMiddleware from "../middlewares/LoggerMiddleware";
 import CorsMiddleware from "../middlewares/CorsMiddleware";
 import JwtMiddleware from "../middlewares/JwtMiddleware";
-import { EntityNotFoundError } from "typeorm";
 import modules from "./modules";
+import errorHandler from "./errorHandler";
+import Benchmark from "./benchmark";
 
 class App {
   protected nano: nanoexpress.INanoexpressApp;
@@ -30,9 +31,16 @@ class App {
   }
 
   protected async initInstances() {
+    Benchmark.start();
     this.nano = getNano();
+    LOGGER.info(`Nanoexpress initialization [${Benchmark.end()}]`);
+
     await initConnection();
+
+    Benchmark.start();
     this.initMiddleware();
+    LOGGER.info(`Middleware initialization [${Benchmark.end()}]`);
+
     await this.initModules();
     this.initErrorHandler();
   }
@@ -50,21 +58,7 @@ class App {
   }
 
   protected initErrorHandler() {
-    this.nano.setErrorHandler(
-      (err: Error, req: IHttpRequest, res: IHttpResponse): IHttpResponse => {
-        let message = err.message;
-        let status = 500;
-
-        if (err instanceof EntityNotFoundError) {
-          message = "Error on find entity";
-          status = 404;
-        }
-
-        return res.status(status).json({
-          message,
-        });
-      }
-    );
+    this.nano.setErrorHandler(errorHandler);
   }
 
   public getRouter() {
@@ -75,7 +69,6 @@ class App {
     const port = config("server.port");
     const url = config("server.url");
     this.nano.listen(port);
-
     LOGGER.info(`app is running at ${url}:${port}`);
   }
 

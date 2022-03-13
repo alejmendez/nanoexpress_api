@@ -1,4 +1,5 @@
 import LOGGER from "../lib/logger";
+import Benchmark from "./benchmark";
 import { addConfig, config } from "./config";
 import { Router } from "./route";
 
@@ -20,12 +21,12 @@ class modules {
     this.paths.routes = config("module.paths.routes");
     await this.readModulesJson();
 
-    await Promise.all(
-      this.modules.map(async (module: any) => {
-        await this.loadModuleConfig(module);
-        await this.loadModuleRouter(module);
-      })
-    );
+    for (const module of this.modules) {
+      Benchmark.start();
+      await this.loadModuleConfig(module);
+      await this.loadModuleRouter(module);
+      LOGGER.info(`Initialized ${module.name} module [${Benchmark.end()}]`);
+    }
   }
 
   protected async loadModuleConfig(module: any) {
@@ -55,9 +56,7 @@ class modules {
     const route = new Router({
       controllersPath,
     });
-    LOGGER.info(`Registering routes for the ${name} module...`);
     await route.init(routesContent);
-    route.initMessage();
   }
 
   protected async getRoutesFile(module: any) {

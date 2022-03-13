@@ -22,7 +22,7 @@ const JwtMiddleware: any = (
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorizated" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 };
 

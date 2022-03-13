@@ -1,9 +1,12 @@
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 
 import { config } from "../../../core/config";
 
 import { hashCompare } from "../../../modules/user/utils";
 import UserService from "../../../modules/user/services/user.service";
+
+import WrongUsernameOrPassword from "../exceptions/WrongUsernameOrPassword";
+import UserNotFound from "../../user/exceptions/UserNotFound";
 
 class LoginService {
   protected userService: UserService;
@@ -14,30 +17,20 @@ class LoginService {
   public async login(
     email: string,
     password: string
-  ): Promise<boolean | string> {
+  ): Promise<string> {
     const user = await this.userService.findOneByEmail(email);
 
     if (!user) {
-      return false;
+      throw new WrongUsernameOrPassword();
     }
-    const isPasswordsMatched = await this.passwordsMatch(
-      password,
-      user.password
-    );
+    const passwordsMatch = await hashCompare(password, user.password);
 
-    if (!isPasswordsMatched) {
-      return false;
+    if (!passwordsMatch) {
+      throw new WrongUsernameOrPassword();
     }
 
     const token = this.generateToken(user);
     return token;
-  }
-
-  protected async passwordsMatch(
-    password: string,
-    password2: string
-  ): Promise<boolean> {
-    return await hashCompare(password, password2);
   }
 
   protected generateToken(user: any): string {
@@ -53,13 +46,19 @@ class LoginService {
     });
   }
 
-  private static instance: LoginService;
-  public static getInstance(): LoginService {
-    if (!LoginService.instance) {
-      LoginService.instance = new LoginService();
+  public async getCurrentUser(token: string): Promise<any> {
+    const payload = this.verifyToken(token);
+    const user = await this.userService.findOne(payload.userId);
+
+    if (!user) {
+      throw new UserNotFound();
     }
 
-    return LoginService.instance;
+    return user;
+  }
+  verifyToken(token: string): any {
+    const jwtSecret = config("jwt.secret");
+    return verify(token, jwtSecret);
   }
 }
 

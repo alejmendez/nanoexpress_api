@@ -28,7 +28,7 @@ const create = async (req: IHttpRequest, res: IHttpResponse) => {
 const update = async (req: IHttpRequest, res: IHttpResponse) => {
   const { id }: any = req.params;
   const userRequest = new UserRequest(req.body);
-  const { user }: any = await userService.update(id, userRequest);
+  await userService.update(id, userRequest);
   return res.json({ message: "User updated successfully" });
 };
 
@@ -36,7 +36,7 @@ const remove = async (req: IHttpRequest, res: IHttpResponse) => {
   const { id }: any = req.params;
   await userService.findOne(id);
   await userService.remove(id);
-  return res.json({ mesage: "User deleted with success" });
+  return res.json({ message: "User deleted with success" });
 };
 
 export { findAll, findOne, create, update, remove };
