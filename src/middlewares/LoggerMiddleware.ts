@@ -1,4 +1,5 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
+import { __ } from "../core/i18n";
 import LOGGER from "../lib/logger";
 
 const LoggerMiddleware: any = (
@@ -7,12 +8,12 @@ const LoggerMiddleware: any = (
   next: any
 ) => {
   try {
-    LOGGER.http(`[${req.method}] request on endpoint ${req.url}`);
+    LOGGER.http(__("request on endpoint", { method: req.method, url: req.url }));
     next();
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "Internal Error: middleware logger" });
+      .json({ message: __("Internal Error: middleware logger") });
   }
 };
 

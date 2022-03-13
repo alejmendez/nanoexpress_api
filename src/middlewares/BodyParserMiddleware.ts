@@ -1,4 +1,5 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
+import { __ } from "../core/i18n";
 
 const isApplicationJson: any = (type: string) => {
   return type === "application/json";
@@ -30,7 +31,7 @@ const BodyParserMiddleware: any = (
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "Internal Error: middleware bodyparser" });
+      .json({ message: __("Internal Error: middleware bodyparser") });
   }
 };
 

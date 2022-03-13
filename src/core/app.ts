@@ -7,16 +7,19 @@ import { getNano } from "./nanoexpress";
 import { Router } from "./route";
 
 import { config } from "./config";
-import { initConnection, getDbConnection } from "./database";
 import LOGGER from "../lib/logger";
+
+import { initConnection, getDbConnection } from "./database";
+import modules from "./modules";
+import handler500 from "./errors/handler500";
+import handler404 from "./errors/handler404";
+import Benchmark from "./benchmark";
 
 import BodyParserMiddleware from "../middlewares/BodyParserMiddleware";
 import LoggerMiddleware from "../middlewares/LoggerMiddleware";
 import CorsMiddleware from "../middlewares/CorsMiddleware";
 import JwtMiddleware from "../middlewares/JwtMiddleware";
-import modules from "./modules";
-import errorHandler from "./errorHandler";
-import Benchmark from "./benchmark";
+import { i18n } from "./i18n";
 
 class App {
   protected nano: nanoexpress.INanoexpressApp;
@@ -38,6 +41,7 @@ class App {
     await initConnection();
 
     Benchmark.start();
+    await i18n.loadTranslations(config("i18n.directory"));
     this.initMiddleware();
     LOGGER.info(`Middleware initialization [${Benchmark.end()}]`);
 
@@ -58,7 +62,8 @@ class App {
   }
 
   protected initErrorHandler() {
-    this.nano.setErrorHandler(errorHandler);
+    this.nano.setErrorHandler(handler500);
+    this.nano.setNotFoundHandler(handler404);
   }
 
   public getRouter() {
@@ -69,12 +74,12 @@ class App {
     const port = config("server.port");
     const url = config("server.url");
     this.nano.listen(port);
-    LOGGER.info(`app is running at ${url}:${port}`);
+    LOGGER.info(`App is running at ${url}:${port}`);
   }
 
   public close() {
     this.nano.close();
-    LOGGER.info("app is down");
+    LOGGER.info("App is down");
   }
 }
 

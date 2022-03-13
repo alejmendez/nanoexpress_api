@@ -1,0 +1,8 @@
+{
+  "Internal Error: middleware bodyparser": "Internal Error: middleware bodyparser",
+  "Internal Error: middleware cors": "Internal Error: middleware cors",
+  "Unauthorized": "Unauthorized",
+  "Internal Error: middleware logger": "Internal Error: middleware logger",
+  "request on endpoint": "[${method}] request on endpoint ${url}",
+  "The route does not exist": "The route does not exist"
+}

@@ -1,6 +1,8 @@
+import { __ } from "../../../core/i18n";
+
 class UserNotFound extends Error {
   constructor() {
-    const message = "wrong username or password";
+    const message = __("Wrong username or password");
     super(message);
   }
 }

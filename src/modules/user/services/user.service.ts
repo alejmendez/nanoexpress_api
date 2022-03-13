@@ -33,7 +33,7 @@ class UserService {
     const user = await this.repository.create(data);
     const existUserWithEmail = await this.existUserWithEmail(user.email);
     if (existUserWithEmail) {
-      throw new Error(`There is already a user with the email ${user.email}`);
+      throw new ThereIsAlreadyAUserWithThatEmail(data.email);
     }
 
     user.password = await hashPassword(user.password);

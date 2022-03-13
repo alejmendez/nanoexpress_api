@@ -1,0 +1,6 @@
+{
+  "User deleted with success" : "User deleted with success",
+  "User updated successfully": "User updated successfully",
+  "There is already a user with the email": "There is already a user with the email ${email}",
+  "Wrong username or password": "Wrong username or password"
+}

@@ -4,6 +4,7 @@ import LoginService from "../services/auth.service";
 import AuthResponse from "../dto/AuthResponse.dto";
 import AuthRequest from "../dto/AuthRequest.dto";
 import UserResponse from "../../user/dto/UserResponse.dto";
+import { __ } from "../../../core/i18n";
 
 const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {
@@ -18,7 +19,7 @@ const login = async (req: IHttpRequest, res: IHttpResponse) => {
 };
 
 const logout = (_req: IHttpRequest, res: IHttpResponse) => {
-  return res.json({ message: "logout successfully" });
+  return res.json({ message: __("The session has been closed successfully") });
 };
 
 const getCurrentUser = async (req: IHttpRequest, res: IHttpResponse) => {

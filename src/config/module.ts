@@ -5,5 +5,6 @@ export const configModule = {
     config: "config",
     controllers: "controllers",
     routes: "routes",
+    locales: "locales",
   }
 };
