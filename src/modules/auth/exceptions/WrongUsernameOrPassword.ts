@@ -1,9 +1,10 @@
 import { __ } from "../../../core/i18n";
+import HttpException from "../../../exceptions/HttpException";
 
-class WrongUsernameOrPassword extends Error {
+class WrongUsernameOrPassword extends HttpException {
   constructor() {
-    const message = __("Wrong username or password");
-    super(message);
+    super(__("Wrong username or password"));
+    this.statusCode = 400;
   }
 }
 

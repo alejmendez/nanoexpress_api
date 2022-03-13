@@ -1,4 +1,5 @@
 {
+  "Internal Error": "Error Interno: ${message}",
   "Internal Error: middleware bodyparser": "Error interno: middleware bodyparser",
   "Internal Error: middleware cors": "Error interno: middleware cors",
   "Unauthorized": "No autorizado",
@@ -7,5 +8,7 @@
   "The route does not exist": "La ruta no existe",
   "The field is required": "${field} es requerido",
   "Must not have additional property": "No debe tener la propiedad adicional ${field}",
-  "Entity not found": "Entidad no encontrada"
+  "Entity not found": "Entidad no encontrada",
+  "Error connecting to database": "Error al conectarse a la base de datos",
+  "Service Unavailable": "Servicio no disponible"
 }

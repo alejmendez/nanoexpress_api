@@ -1,9 +1,10 @@
 import { __ } from "../../../core/i18n";
+import HttpException from "../../../exceptions/HttpException";
 
-class UserNotFound extends Error {
+class UserNotFound extends HttpException {
   constructor() {
-    const message = __("User not found");
-    super(message);
+    super(__("User not found"));
+    this.statusCode = 404;
   }
 }
 

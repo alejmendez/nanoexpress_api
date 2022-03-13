@@ -1,7 +1,10 @@
-class ErrorConnectingToDatabase extends Error {
+import { __ } from "../core/i18n";
+import HttpException from "./HttpException";
+
+class ErrorConnectingToDatabase extends HttpException {
   constructor() {
-    const message = "Error connecting to database";
-    super(message);
+    super(__("Error connecting to database"));
+    this.statusCode = 503;
   }
 }
 
