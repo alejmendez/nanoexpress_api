@@ -8,14 +8,10 @@ import { __ } from "../../../core/i18n";
 
 const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {
-  try {
-    const request = new AuthRequest(req.body);
-    const token = await loginService.login(request.email, request.password);
+  const request = new AuthRequest(req.body);
+  const token = await loginService.login(request.email, request.password, request.rememberMe);
 
-    res.json(new AuthResponse(String(token)));
-  } catch (error: any) {
-    res.status(401).json({ message: error.message });
-  }
+  res.json(new AuthResponse(String(token), request.rememberMe));
 };
 
 const logout = (_req: IHttpRequest, res: IHttpResponse) => {

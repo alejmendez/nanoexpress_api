@@ -2,5 +2,5 @@
   "User deleted with success" : "Usuario eliminado con éxito",
   "User updated successfully": "Usuario actualizado con éxito",
   "There is already a user with the email": "Ya existe un usuario con el correo ${email}",
-  "Wrong username or password": "Nombre de usuario o contraseña incorrecto"
+  "User not found": "Usuario no encontrado"
 }

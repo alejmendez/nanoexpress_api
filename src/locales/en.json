@@ -4,5 +4,8 @@
   "Unauthorized": "Unauthorized",
   "Internal Error: middleware logger": "Internal Error: middleware logger",
   "request on endpoint": "[${method}] request on endpoint ${url}",
-  "The route does not exist": "The route does not exist"
+  "The route does not exist": "The route does not exist",
+  "The field is required": "The ${field} is required",
+  "Must not have additional property": "Must not have additional property ${field}",
+  "Entity not found": "Entity not found"
 }

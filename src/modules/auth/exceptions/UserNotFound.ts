@@ -2,7 +2,7 @@ import { __ } from "../../../core/i18n";
 
 class UserNotFound extends Error {
   constructor() {
-    const message = __("User not found");
+    const message = __("Wrong username or password");
     super(message);
   }
 }

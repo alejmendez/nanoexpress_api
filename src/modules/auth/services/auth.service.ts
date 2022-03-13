@@ -6,8 +6,12 @@ import { hashCompare } from "../../../modules/user/utils";
 import UserService from "../../../modules/user/services/user.service";
 
 import WrongUsernameOrPassword from "../exceptions/WrongUsernameOrPassword";
-import UserNotFound from "../../user/exceptions/UserNotFound";
+import UserNotFound from "../exceptions/UserNotFound";
 
+const jwtExpirationTimeWithRememberMe = config("jwt.expirationTimeWithRememberMe");
+const jwtExpiresIn = config("jwt.expiresIn");
+const jwtAlgorithm = config("jwt.algorithm");
+const jwtSecret = config("jwt.secret");
 class LoginService {
   protected userService: UserService;
   constructor() {
@@ -16,7 +20,8 @@ class LoginService {
 
   public async login(
     email: string,
-    password: string
+    password: string,
+    rememberMe: boolean = false
   ): Promise<string> {
     const user = await this.userService.findOneByEmail(email);
 
@@ -29,20 +34,20 @@ class LoginService {
       throw new WrongUsernameOrPassword();
     }
 
-    const token = this.generateToken(user);
+    const token = this.generateToken(user, rememberMe);
     return token;
   }
 
-  protected generateToken(user: any): string {
+  protected generateToken(user: any, rememberMe: boolean): string {
     const payload: any = {
       userId: user.id,
       email: user.email,
       role: user.role,
     };
 
-    return sign(payload, config("jwt.secret"), {
-      expiresIn: config("jwt.expiresIn"),
-      algorithm: config("jwt.algorithm"),
+    return sign(payload, jwtSecret, {
+      expiresIn: rememberMe ? jwtExpirationTimeWithRememberMe : jwtExpiresIn,
+      algorithm: jwtAlgorithm,
     });
   }
 
