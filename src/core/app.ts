@@ -19,6 +19,7 @@ import BodyParserMiddleware from "../middlewares/BodyParserMiddleware";
 import LoggerMiddleware from "../middlewares/LoggerMiddleware";
 import CorsMiddleware from "../middlewares/CorsMiddleware";
 import JwtMiddleware from "../middlewares/JwtMiddleware";
+
 import { i18n } from "./i18n";
 
 class App {

@@ -1,11 +1,12 @@
 import { getRepository } from "typeorm";
 import { config } from "../../../core/config";
-import UserRequest from "../dto/UserRequest.dto";
+import { paginate, PaginateQuery } from "../../../core/paginate";
 
 import { User } from "../entities/user.entity";
+import UserRequest from "../dto/UserRequest.dto";
+import { generateRandomString, hashPassword } from "../utils";
 import ThereIsAlreadyAUserWithThatEmail from "../exceptions/ThereIsAlreadyAUserWithThatEmail";
 import UserNotFound from "../exceptions/UserNotFound";
-import { generateRandomString, hashPassword } from "../utils";
 
 const validationTokenSize = Number(config("user.validationTokenSize"));
 class UserService {
@@ -16,9 +17,13 @@ class UserService {
     this.repository = getRepository(User);
   }
 
-  public async findAll() {
-    const user = await this.repository.find();
-    return user;
+  public async findAll(query: PaginateQuery) {
+    return paginate(query, this.repository, {
+      sortableColumns: ['id', 'username', 'email'],
+      searchableColumns: ['username', 'email'],
+      defaultSortBy: [['username', 'DESC']],
+      filterableColumns: {},
+    });
   }
 
   public async findOne(id: string) {

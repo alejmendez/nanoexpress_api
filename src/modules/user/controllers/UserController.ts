@@ -1,17 +1,17 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import UserService from "../services/user.service";
-
-import UserResponse from "../dto/UserResponse.dto";
-import UserRequest from "../dto/UserRequest.dto";
 import { __ } from "../../../core/i18n";
 
+import UserService from "../services/user.service";
+import UserResponse from "../dto/UserResponse.dto";
+import UserRequest from "../dto/UserRequest.dto";
+import { RequestToPaginateQuery } from "../../../core/paginate/RequestToPaginateQuery";
+
 const userService = new UserService();
-const findAll = async (_req: IHttpRequest, res: IHttpResponse) => {
-  const users = await userService.findAll();
-  const usersResponse = users.map((user: any) => {
-    return new UserResponse(user);
-  });
-  return res.json(usersResponse);
+const findAll = async (req: IHttpRequest, res: IHttpResponse) => {
+  const query = RequestToPaginateQuery(req);
+  const users = await userService.findAll(query);
+  users.data = users.data.map((user: any) => new UserResponse(user));
+  return res.json(users);
 };
 
 const findOne = async (req: IHttpRequest, res: IHttpResponse) => {

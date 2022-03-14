@@ -3,7 +3,7 @@ import cors, { CorsRequest } from "cors";
 import LOGGER from "../lib/logger";
 import { __ } from "../core/i18n";
 
-const corsMiddleware: any = (
+const CorsMiddleware: any = (
   req: IHttpRequest,
   res: IHttpResponse,
   next: any
@@ -24,4 +24,4 @@ const corsMiddleware: any = (
   }
 };
 
-export default corsMiddleware;
+export default CorsMiddleware;
