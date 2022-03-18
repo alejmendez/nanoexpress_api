@@ -8,12 +8,14 @@ const LoggerMiddleware: any = (
   next: any
 ) => {
   try {
-    LOGGER.http(__("request on endpoint", { method: req.method, url: req.url }));
+    LOGGER.http(
+      __("request on endpoint", { method: req.method, url: req.url })
+    );
     next();
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: __("Internal Error", {message:"middleware logger"}) });
+    return res.status(500).json({
+      message: __("Internal Error", { message: "middleware logger" }),
+    });
   }
 };
 

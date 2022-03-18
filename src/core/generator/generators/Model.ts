@@ -41,7 +41,7 @@ class Model extends GeneratorBase implements Generator {
       const optionsStr = JSON.stringify(options);
 
       field.decorator = `@Column("${variant}", ${optionsStr})`;
-      if (optionsStr === '{}') {
+      if (optionsStr === "{}") {
         field.decorator = `@Column("${variant}")`;
       }
 

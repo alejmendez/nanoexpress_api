@@ -15,7 +15,8 @@ class Routes extends GeneratorBase implements Generator {
   }
 
   public generateRoute(configGenerator: any) {
-    configGenerator.modelPluralName = configGenerator.modelPluralName.toLowerCase();
+    configGenerator.modelPluralName =
+      configGenerator.modelPluralName.toLowerCase();
     const template = this.getTemplate("Route.hbs");
     const content = template(configGenerator);
     const fileName = configGenerator.model + ".route.ts";
@@ -24,7 +25,15 @@ class Routes extends GeneratorBase implements Generator {
   }
 
   public updateRouteIndex(configGenerator: any) {
-    const pathFileIndex = path.join("..", "..", "..", "modules", configGenerator.module, "routes", "index.ts");
+    const pathFileIndex = path.join(
+      "..",
+      "..",
+      "..",
+      "modules",
+      configGenerator.module,
+      "routes",
+      "index.ts"
+    );
     const fileContent = fs.readFileSync(pathFileIndex, "utf-8");
     console.log({
       fileContent,

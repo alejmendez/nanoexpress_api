@@ -5,7 +5,11 @@ import { __ } from "@core/i18n";
 import HttpException from "@exceptions/HttpException";
 import ValidationError from "@exceptions/ValidationError";
 
-export default (err: Error, _req: IHttpRequest, res: IHttpResponse): IHttpResponse => {
+export default (
+  err: Error,
+  _req: IHttpRequest,
+  res: IHttpResponse
+): IHttpResponse => {
   let message = err.message;
   let status = 500;
 
@@ -29,4 +33,4 @@ export default (err: Error, _req: IHttpRequest, res: IHttpResponse): IHttpRespon
   return res.status(status).json({
     message,
   });
-}
+};

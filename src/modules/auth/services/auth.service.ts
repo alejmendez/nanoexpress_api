@@ -8,7 +8,9 @@ import UserService from "@modules/user/services/user.service";
 import WrongUsernameOrPassword from "../exceptions/WrongUsernameOrPassword";
 import UserNotFound from "../exceptions/UserNotFound";
 
-const jwtExpirationTimeWithRememberMe = config("jwt.expirationTimeWithRememberMe");
+const jwtExpirationTimeWithRememberMe = config(
+  "jwt.expirationTimeWithRememberMe"
+);
 const jwtExpiresIn = config("jwt.expiresIn");
 const jwtAlgorithm = config("jwt.algorithm");
 const jwtSecret = config("jwt.secret");

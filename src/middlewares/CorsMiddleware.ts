@@ -22,7 +22,7 @@ const CorsMiddleware: any = (
     LOGGER.error(error);
     return res
       .status(500)
-      .json({ message: __("Internal Error", {message:"middleware cors"}) });
+      .json({ message: __("Internal Error", { message: "middleware cors" }) });
   }
 };
 

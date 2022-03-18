@@ -13,5 +13,4 @@ export const RequestToPaginateQuery = (req: IHttpRequest): PaginateQuery => {
   };
 
   return query;
-}
-
+};

@@ -1,5 +1,5 @@
-import fs from 'fs';
-import Path from 'path';
+import fs from "fs";
+import Path from "path";
 import { config } from "./config";
 
 class I18n {

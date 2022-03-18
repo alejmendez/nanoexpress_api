@@ -1,6 +1,8 @@
 import { config } from "@core/config";
 
-const jwtExpirationTimeWithRememberMe = config("jwt.expirationTimeWithRememberMe");
+const jwtExpirationTimeWithRememberMe = config(
+  "jwt.expirationTimeWithRememberMe"
+);
 const jwtExpiresIn = config("jwt.expiresIn");
 
 class UserResponse {
@@ -10,7 +12,9 @@ class UserResponse {
   constructor(token: string, rememberMe: boolean) {
     this.token = token;
     this.token_type = "bearer";
-    this.expires_in = rememberMe ? jwtExpirationTimeWithRememberMe : jwtExpiresIn;
+    this.expires_in = rememberMe
+      ? jwtExpirationTimeWithRememberMe
+      : jwtExpiresIn;
   }
 }
 

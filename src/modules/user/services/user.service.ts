@@ -19,9 +19,9 @@ class UserService {
 
   public async findAll(query: PaginateQuery) {
     return paginate(query, this.repository, {
-      sortableColumns: ['id', 'username', 'email'],
-      searchableColumns: ['username', 'email'],
-      defaultSortBy: [['username', 'DESC']],
+      sortableColumns: ["id", "username", "email"],
+      searchableColumns: ["username", "email"],
+      defaultSortBy: [["username", "DESC"]],
       filterableColumns: {},
     });
   }

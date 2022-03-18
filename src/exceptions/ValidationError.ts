@@ -12,7 +12,10 @@ class ValidationError extends Error {
           this.addError(params.missingProperty, "The field is required");
           break;
         case "additionalProperties":
-          this.addError(params.additionalProperty, "Must not have additional property");
+          this.addError(
+            params.additionalProperty,
+            "Must not have additional property"
+          );
           break;
       }
     }

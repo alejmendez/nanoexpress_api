@@ -18,7 +18,6 @@ import {
   Exceptions,
 } from "./generators";
 
-
 class GeneratorCommand {
   protected registeredGenerators: { [key: string]: Generator } = {};
 
@@ -46,6 +45,8 @@ class GeneratorCommand {
     this.registerGenerator(new Model());
     this.registerGenerator(new Exceptions());
   }
+
+  // const { exec } = require("child_process");
 
   registerGenerator(generator: Generator) {
     this.registeredGenerators[generator.getName()] = generator;

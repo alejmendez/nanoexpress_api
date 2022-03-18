@@ -15,12 +15,17 @@ class GeneratorBase implements Generator {
 
   public generate(_: any) {}
 
-  protected getTemplate(fileName: string | Array<string>): Handlebars.TemplateDelegate {
+  protected getTemplate(
+    fileName: string | Array<string>
+  ): Handlebars.TemplateDelegate {
     let source = this.getFileContent(fileName);
     return Handlebars.compile(source);
   }
 
-  protected getFileContent(fileName: string | Array<string>, path: Array<string> = []): string {
+  protected getFileContent(
+    fileName: string | Array<string>,
+    path: Array<string> = []
+  ): string {
     path = path.length > 0 ? path : [__dirname, "templates"];
     if (!Array.isArray(fileName)) {
       fileName = [fileName];
@@ -29,7 +34,11 @@ class GeneratorBase implements Generator {
     return fs.readFileSync(filePath, "utf-8");
   }
 
-  protected writeFile(pathDestination: Array<string>, fileName: string, content: string) {
+  protected writeFile(
+    pathDestination: Array<string>,
+    fileName: string,
+    content: string
+  ) {
     const filePathDir = path.join(...pathDestination);
     fs.mkdirSync(filePathDir, { recursive: true });
     const filePath = path.join(...pathDestination, fileName);
