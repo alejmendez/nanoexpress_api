@@ -1,0 +1,13 @@
+class {{model}}Response {
+  {{#each fields}}
+  {{name}}: {{type}};
+  {{/each}}
+
+  constructor(data: any) {
+    {{#each fields}}
+    this.{{name}} = data.{{name}};
+    {{/each}}
+  }
+}
+
+export default {{model}}Response;

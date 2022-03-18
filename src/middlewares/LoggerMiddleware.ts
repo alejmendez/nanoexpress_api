@@ -13,7 +13,7 @@ const LoggerMiddleware: any = (
   } catch (error) {
     return res
       .status(500)
-      .json({ message: __("Internal Error: middleware logger") });
+      .json({ message: __("Internal Error", {message:"middleware logger"}) });
   }
 };
 

@@ -1,0 +1,50 @@
+import { getRepository } from "typeorm";
+import { paginate, PaginateQuery } from "../../../core/paginate";
+
+import { {{model}} } from "../entities/{{modelLower}}.entity";
+import {{model}}Request from "../dto/{{model}}Request.dto";
+import {{model}}NotFound from "../exceptions/{{model}}NotFound";
+
+class {{model}}Service {
+  protected repository: any;
+
+  constructor() {
+    this.repository = getRepository({{model}});
+  }
+
+  public async findAll(query: PaginateQuery) {
+    return paginate(query, this.repository, {
+      sortableColumns: {{{sortableColumns}}},
+      searchableColumns: {{{searchableColumns}}},
+      defaultSortBy: {{{defaultSortBy}}},
+      filterableColumns: {},
+    });
+  }
+
+  public async findOne(id: string) {
+    const {{modelLower}} = await this.repository.findOne(id);
+    if (!{{modelLower}}) {
+      throw new {{model}}NotFound();
+    }
+    return {{modelLower}};
+  }
+
+  public async create(data: {{model}}Request) {
+    const {{modelLower}} = await this.repository.create(data);
+    return this.repository.save({{modelLower}});
+  }
+
+  public async update(id: string, data: {{model}}Request) {
+    let {{modelLower}} = await this.findOne(id);
+    {{modelLower}} = this.repository.merge({{modelLower}}, data);
+    return this.repository.save({{modelLower}});
+  }
+
+  public async remove(id: string) {
+    await this.findOne(id);
+    await this.repository.softDelete(id);
+    return true;
+  }
+}
+
+export default {{model}}Service;

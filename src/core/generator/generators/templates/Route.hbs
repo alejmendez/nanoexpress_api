@@ -1,0 +1,33 @@
+export default [
+  {
+    group: "{{modelPluralName}}",
+    path: "/api/v1/{{modelPluralName}}",
+    routes: [
+      {
+        method: "get",
+        path: "/",
+        handler: "{{model}}Controller@findAll",
+      },
+      {
+        method: "post",
+        path: "/",
+        handler: "{{model}}Controller@create",
+      },
+      {
+        method: "get",
+        path: "/:id",
+        handler: "{{model}}Controller@findOne",
+      },
+      {
+        method: "put",
+        path: "/:id",
+        handler: "{{model}}Controller@update",
+      },
+      {
+        method: "del",
+        path: "/:id",
+        handler: "{{model}}Controller@remove",
+      },
+    ],
+  },
+];

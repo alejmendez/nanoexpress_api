@@ -1,0 +1,89 @@
+{
+  "model": "Employee",
+  "modelPluralName": "Employees",
+  "module": "core",
+  "title": "Employee",
+  "dateMigration": "2021_06_16_000000",
+  "inDB": false,
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "type_db": "id",
+      "htmlType": "",
+      "validations": "",
+      "searchable": false,
+      "fillable": false,
+      "primary": true,
+      "inForm": false,
+      "inList": false
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 20,
+      "label": "Code",
+      "htmlType": "text",
+      "validations": "",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "randomLetter . $this->faker->numberBetween(1, 500)",
+      "flex": "sm6"
+    },
+    {
+      "name": "position",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 50,
+      "label": "Position",
+      "htmlType": "text",
+      "validations": "",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "word()",
+      "flex": "sm6"
+    },
+    {
+      "name": "group_id",
+      "type": "string",
+      "type_db": "uuid",
+      "label": "Group",
+      "htmlType": "select",
+      "validations": "",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "Uuid()",
+      "flex": "sm6"
+    },
+    {
+      "name": "date_admission",
+      "type": "Date",
+      "type_db": "Date",
+      "label": "Date of admission",
+      "htmlType": "text",
+      "validations": "",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "date('Y-m-d', '-5 years')",
+      "flex": "sm6"
+    },
+    {
+      "name": "salary",
+      "type": "number",
+      "type_db": "decimal",
+      "label": "Salary",
+      "htmlType": "text",
+      "validations": "",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "numberBetween(500000, 3000000)",
+      "flex": "sm6"
+    }
+  ]
+}

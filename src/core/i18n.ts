@@ -39,7 +39,12 @@ class I18n {
   }
 
   public __(text: string, dictionary: any = {}) {
-    let translation = this.translations[this.currentLocales][text];
+    let translationLocale = this.translations[this.currentLocales];
+    if (translationLocale === undefined) {
+      return text;
+    }
+
+    let translation = translationLocale[text];
     if (translation === undefined) {
       return text;
     }

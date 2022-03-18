@@ -1,0 +1,11 @@
+import { __ } from "../../../core/i18n";
+import HttpException from "../../../exceptions/HttpException";
+
+class {{model}}NotFound extends HttpException {
+  constructor() {
+    super(__("{{model}} not found"));
+    this.statusCode = 404;
+  }
+}
+
+export default {{model}}NotFound;

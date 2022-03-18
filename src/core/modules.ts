@@ -21,7 +21,8 @@ class modules {
     this.paths.controllers = config("module.paths.controllers");
     this.paths.routes = config("module.paths.routes");
     this.paths.locales = config("module.paths.locales");
-    await this.readModulesJson();
+
+    this.modules = config("module.registeredModules");
 
     for (const module of this.modules) {
       Benchmark.start();
@@ -30,14 +31,6 @@ class modules {
       await this.loadI18n(module);
       LOGGER.info(`Initialized ${module.name} module [${Benchmark.end()}]`);
     }
-  }
-
-  protected async readModulesJson() {
-    const fileModules = config("module.fileModules");
-    const importedFile = await import(
-      `../${this.paths.modules}/${fileModules}`
-    );
-    this.modules = importedFile.default;
   }
 
   protected async loadConfig(module: any) {

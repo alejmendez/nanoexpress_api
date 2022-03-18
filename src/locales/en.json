@@ -1,14 +1,22 @@
 {
   "Internal Error": "Internal Error: ${message}",
-  "Internal Error: middleware bodyparser": "Internal Error: middleware bodyparser",
-  "Internal Error: middleware cors": "Internal Error: middleware cors",
   "Unauthorized": "Unauthorized",
-  "Internal Error: middleware logger": "Internal Error: middleware logger",
   "request on endpoint": "[${method}] request on endpoint ${url}",
   "The route does not exist": "The route does not exist",
   "The field is required": "The ${field} is required",
   "Must not have additional property": "Must not have additional property ${field}",
   "Entity not found": "Entity not found",
   "Error connecting to database": "Error connecting to database",
-  "Service Unavailable": "Service Unavailable"
+  "Service Unavailable": "Service Unavailable",
+  "What action do you want to run": "What action do you want to run?",
+  "Generate All": "Generate All",
+  "Generate Module": "Generate Module",
+  "Generate Controller": "Generate Controller",
+  "Generate Service": "Generate Service",
+  "Generate Routes": "Generate Router",
+  "Generate Locales": "Generate Locales",
+  "Generate Dto": "Generate Dto",
+  "Generate Model": "Generate Model",
+  "Generate Exceptions": "Generate Exceptions",
+  "Select the configuration file to use": "Select the configuration file to use"
 }

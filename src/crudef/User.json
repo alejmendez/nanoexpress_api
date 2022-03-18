@@ -1,0 +1,111 @@
+{
+  "model": "User",
+  "modelPluralName": "Users",
+  "module": "User",
+  "title": "User",
+  "dateMigration": "2019_12_10_000000",
+  "inDB": false,
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "type_db": "id",
+      "htmlType": "",
+      "validations": "",
+      "searchable": false,
+      "fillable": false,
+      "primary": true,
+      "inForm": false,
+      "inList": false
+    },
+    {
+      "name": "person_id",
+      "type": "string",
+      "type_db": "uuid",
+      "htmlType": "select",
+      "validations": "exists:people,id",
+      "searchable": false,
+      "fillable": true,
+      "inForm": true,
+      "inList": false,
+      "faker": "uuid"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 80,
+      "label": "Email",
+      "htmlType": "text",
+      "validations": "email|min:10|max:80",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "unique()->safeEmail"
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 50,
+      "label": "username",
+      "htmlType": "text",
+      "validations": "min:3|max:80",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "unique()->username"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 20,
+      "label": "Status",
+      "htmlType": "text",
+      "validations": "max:20",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "randomElement(['active', 'blocked', 'desactived'])"
+    },
+    {
+      "name": "email_verified_at",
+      "type": "Date",
+      "type_db": "Date",
+      "length": 80,
+      "label": "email verified at",
+      "htmlType": "date",
+      "searchable": true,
+      "nullable": true,
+      "inForm": true,
+      "inList": false,
+      "faker": "dateTime()"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 64,
+      "label": "password",
+      "htmlType": "password",
+      "validations": "min:6|max:30",
+      "searchable": true,
+      "inForm": true,
+      "inList": false,
+      "faker": "randomElement(['M', 'F'])"
+    },
+    {
+      "name": "verification_token",
+      "type": "string",
+      "type_db": "varchar",
+      "length": "64",
+      "label": "verification token",
+      "htmlType": "text",
+      "searchable": true,
+      "inForm": true,
+      "inList": false,
+      "faker": "numberBetween(150, 210)"
+    }
+  ]
+}

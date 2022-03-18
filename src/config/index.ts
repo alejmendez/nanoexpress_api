@@ -6,6 +6,7 @@ import { configJwt } from "./jwt";
 import { configCache } from "./cache";
 import { configModule } from "./module";
 import { configI18n } from "./i18n";
+import { configGenerator } from "./generator";
 
 export const generalConfig = {
   database: configDatabase,
@@ -16,4 +17,5 @@ export const generalConfig = {
   cache: configCache,
   module: configModule,
   i18n: configI18n,
+  generator: configGenerator,
 };

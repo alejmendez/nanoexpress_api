@@ -1,0 +1,43 @@
+import { IHttpRequest, IHttpResponse } from "nanoexpress";
+import { __ } from "../../../core/i18n";
+
+import {{model}}Service from "../services/{{modelLower}}.service";
+import {{model}}Response from "../dto/{{model}}Response.dto";
+import {{model}}Request from "../dto/{{model}}Request.dto";
+import { RequestToPaginateQuery } from "../../../core/paginate/RequestToPaginateQuery";
+
+const {{modelLower}}Service = new {{model}}Service();
+const findAll = async (req: IHttpRequest, res: IHttpResponse) => {
+  const query = RequestToPaginateQuery(req);
+  const {{modelLower}}s = await {{modelLower}}Service.findAll(query);
+  {{modelLower}}s.data = {{modelLower}}s.data.map(({{modelLower}}: any) => new {{model}}Response({{modelLower}}));
+  return res.json({{modelLower}}s);
+};
+
+const findOne = async (req: IHttpRequest, res: IHttpResponse) => {
+  const { id }: any = req.params;
+  const {{modelLower}} = await {{modelLower}}Service.findOne(id);
+  return res.json(new {{model}}Response({{modelLower}}));
+};
+
+const create = async (req: IHttpRequest, res: IHttpResponse) => {
+  const {{modelLower}}Request = new {{model}}Request(req.body);
+  const {{modelLower}} = await {{modelLower}}Service.create({{modelLower}}Request);
+  return res.status(201).json(new {{model}}Response({{modelLower}}));
+};
+
+const update = async (req: IHttpRequest, res: IHttpResponse) => {
+  const { id }: any = req.params;
+  const {{modelLower}}Request = new {{model}}Request(req.body);
+  await {{modelLower}}Service.update(id, {{modelLower}}Request);
+  return res.json({ message: __("{{model}} updated successfully") });
+};
+
+const remove = async (req: IHttpRequest, res: IHttpResponse) => {
+  const { id }: any = req.params;
+  await {{modelLower}}Service.findOne(id);
+  await {{modelLower}}Service.remove(id);
+  return res.json({ message: __("{{model}} deleted with success") });
+};
+
+export { findAll, findOne, create, update, remove };

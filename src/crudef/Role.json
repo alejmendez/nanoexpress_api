@@ -1,0 +1,35 @@
+{
+  "model": "Role",
+  "modelPluralName": "Roles",
+  "module": "Role",
+  "title": "Role",
+  "dateMigration": "2019_12_11_000000",
+  "inDB": false,
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "type_db": "id",
+      "htmlType": "",
+      "validations": "",
+      "searchable": false,
+      "fillable": false,
+      "primary": true,
+      "inForm": false,
+      "inList": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 80,
+      "label": "Name",
+      "htmlType": "input",
+      "validations": "required|min:3|max:80",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "unique()->safeEmail"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "model": "Form",
+  "modelPluralName": "Forms",
+  "module": "core",
+  "title": "Form",
+  "dateMigration": "2019_01_30_000000",
+  "inDB": false,
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "type_db": "id",
+      "htmlType": "",
+      "validations": "",
+      "searchable": false,
+      "fillable": false,
+      "primary": true,
+      "inForm": false,
+      "inList": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 80,
+      "label": "name",
+      "htmlType": "text",
+      "validations": "required,min:3,max:80",
+      "searchable": true,
+      "inForm": true,
+      "inList": true
+    }
+  ]
+}

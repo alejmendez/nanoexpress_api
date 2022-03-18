@@ -1,0 +1,47 @@
+{
+  "model": "Property",
+  "modelPluralName": "Properties",
+  "module": "Property",
+  "title": "Property",
+  "dateMigration": "2020_06_10_000000",
+  "inDB": false,
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "type_db": "id",
+      "htmlType": "",
+      "validations": "",
+      "searchable": false,
+      "fillable": false,
+      "primary": true,
+      "inForm": false,
+      "inList": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "type_db": "varchar",
+      "length": 50,
+      "label": "name",
+      "htmlType": "input",
+      "validations": "required|min:3|max:50|unique:properties,name",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "faker->unique()->word . $this->faker->numberBetween(1, 999999)"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "type_db": "longtext",
+      "label": "value",
+      "htmlType": "textarea",
+      "validations": "required|min:3|max:250",
+      "searchable": true,
+      "inForm": true,
+      "inList": true,
+      "faker": "Str::slug($property, '-')"
+    }
+  ]
+}

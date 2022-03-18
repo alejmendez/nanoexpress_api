@@ -31,7 +31,7 @@ const BodyParserMiddleware: any = (
   } catch (error) {
     return res
       .status(500)
-      .json({ message: __("Internal Error: middleware bodyparser") });
+      .json({ message: __("Internal Error", {message:"middleware bodyparser"}) });
   }
 };
 

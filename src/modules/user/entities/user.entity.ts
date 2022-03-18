@@ -21,30 +21,24 @@ export class User {
   @Column("varchar", { length: 64 })
   password: string;
 
-  @Column({ name: "email_verified_at", nullable: true })
-  emailVerifiedAt: Date;
+  @Column({ nullable: true })
+  email_verified_at: Date;
 
-  @Column("varchar", { name: "verification_token", length: 64 })
-  verificationToken: string;
+  @Column("varchar", { length: 64 })
+  verification_token: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  is_active: boolean;
 
-  @Column({ type: "varchar", length: 100 })
+  @Column("varchar", { length: 100 })
   role: string;
 
-  @CreateDateColumn({
-    name: "create_at",
-  })
-  createAt: Date;
+  @CreateDateColumn()
+  create_at: Date;
 
-  @UpdateDateColumn({
-    name: "update_at",
-  })
-  updateAt: Date;
+  @UpdateDateColumn()
+  update_at: Date;
 
-  @DeleteDateColumn({
-    name: "delete_at",
-  })
-  deleteAt: Date;
+  @DeleteDateColumn()
+  delete_at: Date;
 }
