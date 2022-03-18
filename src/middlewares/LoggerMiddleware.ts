@@ -1,6 +1,6 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import { __ } from "../core/i18n";
-import LOGGER from "../lib/logger";
+import { __ } from "@core/i18n";
+import LOGGER from "@core/logger";
 
 const LoggerMiddleware: any = (
   req: IHttpRequest,

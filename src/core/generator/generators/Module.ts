@@ -1,4 +1,4 @@
-import { config } from "../../config";
+import { config } from "@core/config";
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 

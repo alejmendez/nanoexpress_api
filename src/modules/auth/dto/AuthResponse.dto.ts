@@ -1,4 +1,4 @@
-import { config } from "../../../core/config";
+import { config } from "@core/config";
 
 const jwtExpirationTimeWithRememberMe = config("jwt.expirationTimeWithRememberMe");
 const jwtExpiresIn = config("jwt.expiresIn");

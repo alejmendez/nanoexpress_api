@@ -1,4 +1,4 @@
-import { getApp } from "./core/app";
+import { getApp } from "@core/app";
 
 export const app = getApp();
 

@@ -1,8 +1,9 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import { EntityNotFoundError } from "typeorm";
-import HttpException from "../../exceptions/HttpException";
-import ValidationError from "../../exceptions/ValidationError";
-import { __ } from "../i18n";
+
+import { __ } from "@core/i18n";
+import HttpException from "@exceptions/HttpException";
+import ValidationError from "@exceptions/ValidationError";
 
 export default (err: Error, _req: IHttpRequest, res: IHttpResponse): IHttpResponse => {
   let message = err.message;

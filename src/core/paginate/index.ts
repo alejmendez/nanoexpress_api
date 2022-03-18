@@ -18,7 +18,7 @@ import {
 } from "typeorm";
 import { values, mapKeys } from "lodash";
 import { stringify } from "querystring";
-import ServiceUnavailableException from "../../exceptions/ServiceUnavailableException";
+import ServiceUnavailableException from "@exceptions/ServiceUnavailableException";
 
 type Column<T> = Extract<keyof T, string>;
 type Order<T> = [Column<T>, "ASC" | "DESC"];

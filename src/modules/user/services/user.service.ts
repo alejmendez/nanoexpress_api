@@ -1,6 +1,6 @@
 import { getRepository } from "typeorm";
-import { config } from "../../../core/config";
-import { paginate, PaginateQuery } from "../../../core/paginate";
+import { config } from "@core/config";
+import { paginate, PaginateQuery } from "@core/paginate";
 
 import { User } from "../entities/user.entity";
 import UserRequest from "../dto/UserRequest.dto";

@@ -1,5 +1,5 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import { __ } from "../core/i18n";
+import { __ } from "@core/i18n";
 
 const isApplicationJson: any = (type: string) => {
   return type === "application/json";

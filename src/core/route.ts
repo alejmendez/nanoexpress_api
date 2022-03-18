@@ -1,6 +1,6 @@
 import nanoexpress, { HttpRoute } from "nanoexpress";
 import { padEnd } from "lodash";
-import LOGGER from "../lib/logger";
+import LOGGER from "./logger";
 import { getNano } from "./nanoexpress";
 
 class Router {

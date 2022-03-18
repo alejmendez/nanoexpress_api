@@ -1,5 +1,5 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import { __ } from "../i18n";
+import { __ } from "@core/i18n";
 
 export default (_req: IHttpRequest, res: IHttpResponse): IHttpResponse => {
   return res.status(404).json({

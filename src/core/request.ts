@@ -1,5 +1,5 @@
 import Ajv from "ajv";
-import ValidationError from "../exceptions/ValidationError";
+import ValidationError from "@exceptions/ValidationError";
 import { __ } from "./i18n";
 
 const ajv = new Ajv({allErrors: true});

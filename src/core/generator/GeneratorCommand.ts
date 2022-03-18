@@ -2,6 +2,9 @@ import { program } from "commander";
 import inquirer from "inquirer";
 import * as fs from "fs";
 
+import { i18n, __ } from "@core/i18n";
+import { config } from "@core/config";
+
 import Generator from "./interfaces/Generator";
 import {
   All,
@@ -14,8 +17,7 @@ import {
   Model,
   Exceptions,
 } from "./generators";
-import { i18n, __ } from "../i18n";
-import { config } from "../config";
+
 
 class GeneratorCommand {
   protected registeredGenerators: { [key: string]: Generator } = {};

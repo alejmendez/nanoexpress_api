@@ -1,4 +1,4 @@
-import Request from "../../../core/request";
+import Request from "@core/request";
 
 class AuthRequest extends Request {
   email: string;

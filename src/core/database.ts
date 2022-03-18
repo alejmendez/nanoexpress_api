@@ -1,6 +1,6 @@
 import { createConnection, Connection } from "typeorm";
-import ErrorConnectingToDatabase from "../exceptions/ErrorConnectingToDatabase";
-import LOGGER from "../lib/logger";
+import ErrorConnectingToDatabase from "@exceptions/ErrorConnectingToDatabase";
+import LOGGER from "./logger";
 import Benchmark from "./benchmark";
 import { config } from "./config";
 

@@ -1,10 +1,11 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import { __ } from "../../../core/i18n";
+
+import { __ } from "@core/i18n";
+import { RequestToPaginateQuery } from "@core/paginate/RequestToPaginateQuery";
 
 import UserService from "../services/user.service";
 import UserResponse from "../dto/UserResponse.dto";
 import UserRequest from "../dto/UserRequest.dto";
-import { RequestToPaginateQuery } from "../../../core/paginate/RequestToPaginateQuery";
 
 const userService = new UserService();
 const findAll = async (req: IHttpRequest, res: IHttpResponse) => {

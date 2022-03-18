@@ -1,10 +1,10 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
-import LoginService from "../services/auth.service";
+import { __ } from "@core/i18n";
 
+import LoginService from "../services/auth.service";
 import AuthResponse from "../dto/AuthResponse.dto";
 import AuthRequest from "../dto/AuthRequest.dto";
-import UserResponse from "../../user/dto/UserResponse.dto";
-import { __ } from "../../../core/i18n";
+import UserResponse from "@modules/user/dto/UserResponse.dto";
 
 const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {

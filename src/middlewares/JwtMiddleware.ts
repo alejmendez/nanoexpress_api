@@ -1,8 +1,8 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import { verify } from "jsonwebtoken";
 
-import { config } from "../core/config";
-import { __ } from "../core/i18n";
+import { config } from "@core/config";
+import { __ } from "@core/i18n";
 
 const routesExcludes = config("jwt.unless", []);
 const jwtSecret = config("jwt.secret");

@@ -1,5 +1,5 @@
 import winston, { transports } from "winston";
-import { config } from "../core/config";
+import { config } from "@core/config";
 
 const levels = {
   error: 0,

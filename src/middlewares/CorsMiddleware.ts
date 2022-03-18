@@ -1,7 +1,7 @@
 import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import cors, { CorsRequest } from "cors";
-import LOGGER from "../lib/logger";
-import { __ } from "../core/i18n";
+import LOGGER from "@core/logger";
+import { __ } from "@core/i18n";
 
 const CorsMiddleware: any = (
   req: IHttpRequest,

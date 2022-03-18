@@ -1,4 +1,4 @@
-import LOGGER from "../lib/logger";
+import LOGGER from "./logger";
 import Benchmark from "./benchmark";
 import { addConfig, config } from "./config";
 import { Router } from "./route";
@@ -40,7 +40,7 @@ class modules {
 
   protected async getConfigFile(module: any) {
     const { name } = module;
-    const routesPath = `../${this.paths.modules}/${name}/${this.paths.config}/`;
+    const routesPath = `@modules/${name}/${this.paths.config}/`;
     const importedFile = await import(routesPath);
     return importedFile.default;
   }
@@ -48,7 +48,7 @@ class modules {
   protected async loadRouter(module: any) {
     const { name } = module;
     const routesContent = await this.getRoutesFile(module);
-    const controllersPath = `../${this.paths.modules}/${name}/${this.paths.controllers}/`;
+    const controllersPath = `@modules/${name}/${this.paths.controllers}/`;
     const route = new Router({
       controllersPath,
     });
@@ -57,14 +57,14 @@ class modules {
 
   protected async getRoutesFile(module: any) {
     const { name } = module;
-    const routesPath = `../${this.paths.modules}/${name}/${this.paths.routes}/`;
+    const routesPath = `@modules/${name}/${this.paths.routes}/`;
     const importedFile = await import(routesPath);
     return importedFile.default;
   }
 
   protected async loadI18n(module: any) {
     const { name } = module;
-    const i18nPath = `../${this.paths.modules}/${name}/${this.paths.locales}`;
+    const i18nPath = `@modules/${name}/${this.paths.locales}`;
     await i18n.loadTranslations(i18nPath);
   }
 }

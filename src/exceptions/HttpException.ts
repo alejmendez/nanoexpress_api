@@ -1,4 +1,4 @@
-import { __ } from "../core/i18n";
+import { __ } from "@core/i18n";
 
 class HttpException extends Error {
   public statusCode: number;

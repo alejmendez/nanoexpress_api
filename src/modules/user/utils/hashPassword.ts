@@ -1,5 +1,5 @@
 import { hash } from "bcrypt";
-import { config } from "../../../core/config";
+import { config } from "@core/config";
 
 const saltForPasswords = Number(config("user.saltForPasswords"));
 

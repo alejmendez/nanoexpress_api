@@ -1,4 +1,4 @@
-import { __ } from "../core/i18n";
+import { __ } from "@core/i18n";
 import HttpException from "./HttpException";
 
 class ErrorConnectingToDatabase extends HttpException {
