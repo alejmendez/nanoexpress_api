@@ -1,7 +1,7 @@
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Service extends GeneratorBase implements Generator {
+export default class Service extends GeneratorBase implements Generator {
   constructor() {
     super("Service");
   }
@@ -34,5 +34,3 @@ class Service extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Service;

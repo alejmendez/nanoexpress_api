@@ -1,7 +1,7 @@
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Exceptions extends GeneratorBase implements Generator {
+export default class Exceptions extends GeneratorBase implements Generator {
   constructor() {
     super("Exceptions");
   }
@@ -14,5 +14,3 @@ class Exceptions extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Exceptions;

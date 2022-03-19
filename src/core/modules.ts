@@ -3,7 +3,8 @@ import Benchmark from "./benchmark";
 import { addConfig, config } from "./config";
 import { Router } from "./route";
 import { i18n } from "./i18n";
-class modules {
+
+export default class modules {
   protected modules: Array<any>;
   protected paths: any = {
     modules: "",
@@ -26,11 +27,15 @@ class modules {
 
     for (const module of this.modules) {
       Benchmark.start();
-      await this.loadConfig(module);
-      await this.loadRouter(module);
-      await this.loadI18n(module);
+      this.loadModule(module);
       LOGGER.info(`Initialized ${module.name} module [${Benchmark.end()}]`);
     }
+  }
+
+  protected async loadModule(module: any) {
+    await this.loadConfig(module);
+    await this.loadRouter(module);
+    await this.loadI18n(module);
   }
 
   protected async loadConfig(module: any) {
@@ -68,5 +73,3 @@ class modules {
     await i18n.loadTranslations(i18nPath);
   }
 }
-
-export default modules;

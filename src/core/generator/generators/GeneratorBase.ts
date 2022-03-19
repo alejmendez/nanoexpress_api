@@ -4,7 +4,7 @@ import Handlebars from "handlebars";
 
 import Generator from "../interfaces/Generator";
 
-class GeneratorBase implements Generator {
+export default class GeneratorBase implements Generator {
   protected name: string;
   constructor(name: string) {
     this.name = name;
@@ -45,5 +45,3 @@ class GeneratorBase implements Generator {
     return fs.writeFileSync(filePath, content);
   }
 }
-
-export default GeneratorBase;

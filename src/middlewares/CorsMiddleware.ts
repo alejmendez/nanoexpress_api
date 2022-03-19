@@ -3,7 +3,7 @@ import cors, { CorsRequest } from "cors";
 import LOGGER from "@core/logger";
 import { __ } from "@core/i18n";
 
-const CorsMiddleware: any = (
+export const CorsMiddleware: any = (
   req: IHttpRequest,
   res: IHttpResponse,
   next: any
@@ -25,5 +25,3 @@ const CorsMiddleware: any = (
       .json({ message: __("Internal Error", { message: "middleware cors" }) });
   }
 };
-
-export default CorsMiddleware;

@@ -10,7 +10,7 @@ import Dto from "./Dto";
 import Model from "./Model";
 import Exceptions from "./Exceptions";
 
-class All extends GeneratorBase implements Generator {
+export default class All extends GeneratorBase implements Generator {
   constructor() {
     super("All");
   }
@@ -32,5 +32,3 @@ class All extends GeneratorBase implements Generator {
     }
   }
 }
-
-export default All;

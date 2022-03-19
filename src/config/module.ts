@@ -12,12 +12,8 @@ export const configModule = {
       description: "Module auth",
     },
     {
-      name: "health",
-      description: "Module health",
-    },
-    {
-      name: "user",
-      description: "Module user",
+      name: "core",
+      description: "Module core",
     },
   ],
 };

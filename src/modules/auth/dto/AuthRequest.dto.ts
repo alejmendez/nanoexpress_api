@@ -1,6 +1,6 @@
 import Request from "@core/request";
 
-class AuthRequest extends Request {
+export default class AuthRequest extends Request {
   email: string;
   password: string;
   rememberMe: boolean;
@@ -23,5 +23,3 @@ class AuthRequest extends Request {
     this.rememberMe = !!data.rememberMe;
   }
 }
-
-export default AuthRequest;

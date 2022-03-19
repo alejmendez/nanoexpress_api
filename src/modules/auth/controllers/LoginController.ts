@@ -4,7 +4,7 @@ import { __ } from "@core/i18n";
 import LoginService from "../services/auth.service";
 import AuthResponse from "../dto/AuthResponse.dto";
 import AuthRequest from "../dto/AuthRequest.dto";
-import UserResponse from "@modules/user/dto/UserResponse.dto";
+import UserResponse from "@modules/core/dto/UserResponse.dto";
 
 const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {

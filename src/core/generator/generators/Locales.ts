@@ -1,7 +1,7 @@
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Locales extends GeneratorBase implements Generator {
+export default class Locales extends GeneratorBase implements Generator {
   constructor() {
     super("Locales");
   }
@@ -26,5 +26,3 @@ class Locales extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Locales;

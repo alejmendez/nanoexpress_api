@@ -1,7 +1,7 @@
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Controller extends GeneratorBase implements Generator {
+export default class Controller extends GeneratorBase implements Generator {
   constructor() {
     super("Controller");
   }
@@ -14,5 +14,3 @@ class Controller extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Controller;

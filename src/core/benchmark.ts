@@ -1,4 +1,4 @@
-class Benchmark {
+export default class Benchmark {
   static startTime: [number, number];
 
   static start() {
@@ -14,4 +14,3 @@ class Benchmark {
     return `${(time[0] * 1000 + time[1] / 1e6).toFixed(2)}ms`;
   }
 }
-export default Benchmark;

@@ -1,4 +1,4 @@
-class UserResponse {
+export default class UserResponse {
   id: string;
   username: string;
   email: string;
@@ -12,5 +12,3 @@ class UserResponse {
     this.role = data.role;
   }
 }
-
-export default UserResponse;

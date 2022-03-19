@@ -2,7 +2,7 @@ import { snakeCase } from "lodash";
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Model extends GeneratorBase implements Generator {
+export default class Model extends GeneratorBase implements Generator {
   constructor() {
     super("Model");
   }
@@ -55,5 +55,3 @@ class Model extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Model;

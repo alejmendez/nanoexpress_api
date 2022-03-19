@@ -1,7 +1,7 @@
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Dto extends GeneratorBase implements Generator {
+export default class Dto extends GeneratorBase implements Generator {
   constructor() {
     super("Dto");
   }
@@ -27,5 +27,3 @@ class Dto extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Dto;

@@ -5,7 +5,7 @@ const jwtExpirationTimeWithRememberMe = config(
 );
 const jwtExpiresIn = config("jwt.expiresIn");
 
-class UserResponse {
+export default class UserResponse {
   token: string;
   token_type: string;
   expires_in: Number;
@@ -17,5 +17,3 @@ class UserResponse {
       : jwtExpiresIn;
   }
 }
-
-export default UserResponse;

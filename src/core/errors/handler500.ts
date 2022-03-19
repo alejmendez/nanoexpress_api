@@ -13,6 +13,8 @@ export default (
   let message = err.message;
   let status = 500;
 
+  console.log(err);
+
   if (err instanceof EntityNotFoundError) {
     message = __("Error on find entity");
     status = 404;

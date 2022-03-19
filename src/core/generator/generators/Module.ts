@@ -2,7 +2,7 @@ import { config } from "@core/config";
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Module extends GeneratorBase implements Generator {
+export default class Module extends GeneratorBase implements Generator {
   constructor() {
     super("Module");
   }
@@ -30,5 +30,3 @@ class Module extends GeneratorBase implements Generator {
     this.writeFile(path, fileName, content);
   }
 }
-
-export default Module;

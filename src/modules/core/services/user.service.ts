@@ -9,7 +9,7 @@ import ThereIsAlreadyAUserWithThatEmail from "../exceptions/ThereIsAlreadyAUserW
 import UserNotFound from "../exceptions/UserNotFound";
 
 const validationTokenSize = Number(config("user.validationTokenSize"));
-class UserService {
+export default class UserService {
   protected repository: any;
   protected validationTokenSize: Number = validationTokenSize;
 
@@ -49,14 +49,11 @@ class UserService {
 
   async existUserWithEmail(email: string): Promise<boolean> {
     const user = await this.findOneByEmail(email);
-    return user !== null;
+    return user !== null && user !== undefined;
   }
 
   async findOneByEmail(email: string): Promise<User> {
     const user = await this.repository.findOne({ email });
-    if (!user) {
-      throw new UserNotFound();
-    }
     return user;
   }
 
@@ -84,5 +81,3 @@ class UserService {
     return true;
   }
 }
-
-export default UserService;

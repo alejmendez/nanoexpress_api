@@ -13,7 +13,7 @@ const cleanBody: any = (req: IHttpRequest): any => {
   return JSON.parse(reqBody.toString());
 };
 
-const BodyParserMiddleware: any = (
+export const BodyParserMiddleware: any = (
   req: IHttpRequest,
   res: IHttpResponse,
   next: any
@@ -34,5 +34,3 @@ const BodyParserMiddleware: any = (
     });
   }
 };
-
-export default BodyParserMiddleware;

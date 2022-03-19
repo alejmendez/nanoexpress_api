@@ -15,10 +15,10 @@ import handler500 from "./errors/handler500";
 import handler404 from "./errors/handler404";
 import Benchmark from "./benchmark";
 
-import BodyParserMiddleware from "@middlewares/BodyParserMiddleware";
-import LoggerMiddleware from "@middlewares/LoggerMiddleware";
-import CorsMiddleware from "@middlewares/CorsMiddleware";
-import JwtMiddleware from "@middlewares/JwtMiddleware";
+import { BodyParserMiddleware } from "@middlewares/BodyParserMiddleware";
+import { LoggerMiddleware } from "@middlewares/LoggerMiddleware";
+import { CorsMiddleware } from "@middlewares/CorsMiddleware";
+import { JwtMiddleware } from "@middlewares/JwtMiddleware";
 
 import { i18n } from "./i18n";
 

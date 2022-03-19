@@ -2,8 +2,8 @@ import { sign, verify } from "jsonwebtoken";
 
 import { config } from "@core/config";
 
-import { hashCompare } from "@modules/user/utils";
-import UserService from "@modules/user/services/user.service";
+import { hashCompare } from "@modules/core/utils";
+import UserService from "@modules/core/services/user.service";
 
 import WrongUsernameOrPassword from "../exceptions/WrongUsernameOrPassword";
 import UserNotFound from "../exceptions/UserNotFound";
@@ -14,7 +14,7 @@ const jwtExpirationTimeWithRememberMe = config(
 const jwtExpiresIn = config("jwt.expiresIn");
 const jwtAlgorithm = config("jwt.algorithm");
 const jwtSecret = config("jwt.secret");
-class LoginService {
+export default class LoginService {
   protected userService: UserService;
   constructor() {
     this.userService = new UserService();
@@ -68,5 +68,3 @@ class LoginService {
     return verify(token, jwtSecret);
   }
 }
-
-export default LoginService;

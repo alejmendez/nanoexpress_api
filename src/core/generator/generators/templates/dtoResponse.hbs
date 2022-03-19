@@ -1,4 +1,4 @@
-class {{model}}Response {
+export default class {{model}}Response {
   {{#each fields}}
   {{name}}: {{type}};
   {{/each}}
@@ -9,5 +9,3 @@ class {{model}}Response {
     {{/each}}
   }
 }
-
-export default {{model}}Response;

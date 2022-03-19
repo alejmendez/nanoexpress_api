@@ -2,7 +2,7 @@ import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import { __ } from "@core/i18n";
 import LOGGER from "@core/logger";
 
-const LoggerMiddleware: any = (
+export const LoggerMiddleware: any = (
   req: IHttpRequest,
   res: IHttpResponse,
   next: any
@@ -18,5 +18,3 @@ const LoggerMiddleware: any = (
     });
   }
 };
-
-export default LoggerMiddleware;

@@ -1,4 +1,4 @@
-class {{model}}Request {
+export default class {{model}}Request {
   {{#each fields}}
   {{name}}: {{type}};
   {{/each}}
@@ -9,5 +9,3 @@ class {{model}}Request {
     {{/each}}
   }
 }
-
-export default {{model}}Request;

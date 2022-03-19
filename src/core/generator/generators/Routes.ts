@@ -4,7 +4,7 @@ import * as path from "path";
 import Generator from "../interfaces/Generator";
 import GeneratorBase from "./GeneratorBase";
 
-class Routes extends GeneratorBase implements Generator {
+export default class Routes extends GeneratorBase implements Generator {
   constructor() {
     super("Routes");
   }
@@ -40,5 +40,3 @@ class Routes extends GeneratorBase implements Generator {
     });
   }
 }
-
-export default Routes;

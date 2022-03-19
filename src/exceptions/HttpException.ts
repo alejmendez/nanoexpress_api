@@ -1,6 +1,6 @@
 import { __ } from "@core/i18n";
 
-class HttpException extends Error {
+export default class HttpException extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -8,5 +8,3 @@ class HttpException extends Error {
     this.statusCode = 500;
   }
 }
-
-export default HttpException;

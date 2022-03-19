@@ -4,7 +4,7 @@ import { __ } from "./i18n";
 
 const ajv = new Ajv({ allErrors: true });
 
-class Request {
+export default class Request {
   protected schema: any;
 
   protected validate(data: any) {
@@ -18,5 +18,3 @@ class Request {
     throw new ValidationError(ajvValidate.errors);
   }
 }
-
-export default Request;
