@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
-    /* Language and Environment */
-    "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "es5",
     "baseUrl": ".",
 
     "paths": {
@@ -14,14 +11,16 @@
     },
 
     /* Modules */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "module": "commonjs",
+    "sourceMap": true,
+    "rootDir": "./src",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
 
     /* Type Checking */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
+    "strict": true,
+    "skipLibCheck": true,
 
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

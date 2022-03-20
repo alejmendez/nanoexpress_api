@@ -24,7 +24,7 @@ export class User {
   @Column({ nullable: true })
   email_verified_at: Date;
 
-  @Column("varchar", { length: 64 })
+  @Column("varchar", { length: 64, default: "" })
   verification_token: string;
 
   @Column({ default: true })

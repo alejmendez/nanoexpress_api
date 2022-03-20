@@ -1,19 +1,24 @@
+import Benchmark from "./benchmark";
+
+Benchmark.start();
 import dotenv from "dotenv";
 dotenv.config();
 
-import nanoexpress from "nanoexpress";
+import LOGGER from "./logger";
+import { INanoexpressApp } from "nanoexpress";
 
+LOGGER.info(`Nanoexpress initialization [${Benchmark.end()}]`);
+
+import { config } from "./config";
+import { initConnection, getDbConnection } from "./database";
+
+Benchmark.start();
 import { getNano } from "./nanoexpress";
 import { Router } from "./route";
 
-import { config } from "./config";
-import LOGGER from "./logger";
-
-import { initConnection, getDbConnection } from "./database";
 import modules from "./modules";
 import handler500 from "./errors/handler500";
 import handler404 from "./errors/handler404";
-import Benchmark from "./benchmark";
 
 import { BodyParserMiddleware } from "@middlewares/BodyParserMiddleware";
 import { LoggerMiddleware } from "@middlewares/LoggerMiddleware";
@@ -22,8 +27,10 @@ import { JwtMiddleware } from "@middlewares/JwtMiddleware";
 
 import { i18n } from "./i18n";
 
+LOGGER.info(`Importing dependencies [${Benchmark.end()}]`);
+
 class App {
-  protected nano: nanoexpress.INanoexpressApp;
+  protected nano: INanoexpressApp;
   protected route: Router;
   protected modules: modules;
 
@@ -35,9 +42,7 @@ class App {
   }
 
   protected async initInstances() {
-    Benchmark.start();
     this.nano = getNano();
-    LOGGER.info(`Nanoexpress initialization [${Benchmark.end()}]`);
 
     await initConnection();
 

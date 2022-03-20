@@ -13,7 +13,6 @@ export const JwtMiddleware: any = (
   next: any
 ) => {
   try {
-    return next();
     if (routesExcludes.includes(req.url)) {
       return next();
     }

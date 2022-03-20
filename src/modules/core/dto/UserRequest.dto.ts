@@ -6,15 +6,21 @@ export default class UserRequest extends Request {
   password: string;
   role: string;
 
-  protected schema: any = {
-    username: "",
-    email: "",
-    password: "",
-    role: "",
+  protected override schema: any = {
+    type: "object",
+    properties: {
+      username: { type: "string" },
+      email: { type: "string" },
+      password: { type: "string", nullable: true },
+      role: { type: "string" },
+    },
+    required: ["username", "email", "password", "role"],
   };
 
   constructor(data: any) {
     super();
+    this.validate(data);
+
     this.username = data.username.toLowerCase();
     this.email = data.email.toLowerCase();
     this.password = data.password;

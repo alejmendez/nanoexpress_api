@@ -95,9 +95,8 @@ class Router {
   }
 
   protected async getController(controllerName: string) {
-    const controller = await import(
-      `${this.config.controllersPath}/${controllerName}`
-    );
+    const { controllersPath } = this.config;
+    const controller = await import(`${controllersPath}/${controllerName}`);
     return controller;
   }
 }
