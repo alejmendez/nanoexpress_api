@@ -1,5 +1,6 @@
 import fs from "fs";
-import Path from "path";
+import path from "path";
+import Polyglot from "node-polyglot";
 import { config } from "./config";
 
 class I18n {
@@ -8,6 +9,7 @@ class I18n {
 
   protected currentLocales: string = "";
   protected translations: any = {};
+  protected polyglot: Polyglot;
 
   constructor() {
     this.init();
@@ -17,25 +19,29 @@ class I18n {
     this.locales = config("i18n.locales");
     this.defaultLocale = config("i18n.defaultLocale");
     this.currentLocales = this.defaultLocale;
+
+    this.locales.map((locale) => {
+      this.translations[locale] = new Polyglot({ locale });
+    });
   }
 
   public async loadTranslations(directory: string) {
     for (const locale of this.locales) {
-      const file = `${directory}/${locale}.json`;
+      const file = path.join(__dirname, directory, `${locale}.json`);
 
-      if (!fs.existsSync(Path.join(__dirname, file))) {
+      console.log({ file });
+
+      if (!fs.existsSync(file)) {
         continue;
       }
-      const translations = await import(file);
-      this.loadTranslation(locale, translations);
+      let rawData = fs.readFileSync(file, "utf8");
+      let jsonData = JSON.parse(rawData);
+      this.loadTranslation(locale, jsonData);
     }
   }
 
   public loadTranslation(locale: string, translations: any) {
-    this.translations[locale] = {
-      ...this.translations[locale],
-      ...translations,
-    };
+    this.translations[locale].extend(translations);
   }
 
   public __(text: string, dictionary: any = {}) {
@@ -44,12 +50,9 @@ class I18n {
       return text;
     }
 
-    let translation = translationLocale[text];
+    let translation = translationLocale.t(text, dictionary);
     if (translation === undefined) {
       return text;
-    }
-    for (const word in dictionary) {
-      translation = translation.replaceAll(`\${${word}}`, dictionary[word]);
     }
     return translation;
   }

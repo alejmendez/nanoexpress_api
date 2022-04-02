@@ -3,7 +3,7 @@ import HttpException from "./HttpException";
 
 export default class ServiceUnavailableException extends HttpException {
   constructor() {
-    super(__("Service Unavailable"));
+    super(__("service_unavailable"));
     this.statusCode = 500;
   }
 }

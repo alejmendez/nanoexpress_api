@@ -19,7 +19,9 @@ const login = async (req: IHttpRequest, res: IHttpResponse) => {
 };
 
 const logout = (_req: IHttpRequest, res: IHttpResponse) => {
-  return res.json({ message: __("The session has been closed successfully") });
+  return res.json({
+    message: __("auth.the_session_has_been_closed_successfully"),
+  });
 };
 
 const getCurrentUser = async (req: IHttpRequest, res: IHttpResponse) => {

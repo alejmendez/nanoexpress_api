@@ -9,12 +9,12 @@ export const LoggerMiddleware: any = (
 ) => {
   try {
     LOGGER.http(
-      __("request on endpoint", { method: req.method, url: req.url })
+      __("request_on_endpoint", { method: req.method, url: req.url })
     );
     next();
   } catch (error) {
     return res.status(500).json({
-      message: __("Internal Error", { message: "middleware logger" }),
+      message: __("internal_error", { message: "middleware logger" }),
     });
   }
 };

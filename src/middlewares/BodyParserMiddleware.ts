@@ -30,7 +30,7 @@ export const BodyParserMiddleware: any = (
     next();
   } catch (error) {
     return res.status(500).json({
-      message: __("Internal Error", { message: "middleware bodyparser" }),
+      message: __("internal_error", { message: "middleware bodyparser" }),
     });
   }
 };

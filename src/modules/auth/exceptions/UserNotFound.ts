@@ -3,7 +3,7 @@ import HttpException from "@exceptions/HttpException";
 
 export default class UserNotFound extends HttpException {
   constructor() {
-    super(__("Wrong username or password"));
+    super(__("auth.wrong_username_or_password"));
     this.statusCode = 404;
   }
 }

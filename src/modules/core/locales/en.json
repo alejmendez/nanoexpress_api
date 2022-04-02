@@ -1,6 +1,12 @@
 {
-  "User deleted with success" : "User deleted with success",
-  "User updated successfully": "User updated successfully",
-  "There is already a user with the email": "There is already a user with the email ${email}",
-  "User not found": "User not found"
+  "user": {
+    "user_deleted_with_success" : "User deleted with success",
+    "user_updated_successfully": "User updated successfully",
+    "user_not_found": "User not found"
+  },
+  "person": {
+    "person_deleted_with_success" : "Person deleted with success",
+    "person_updated_successfully": "Person updated successfully",
+    "person_not_found": "Person not found"
+  }
 }

@@ -1,4 +1,6 @@
 {
-  "The session has been closed successfully": "Se ha cerrado la sesión satisfactoriamente",
-  "Wrong username or password": "Nombre de usuario o contraseña incorrectos"
+  "auth" : {
+    "the_session_has_been_closed_successfully": "Se ha cerrado la sesión satisfactoriamente",
+    "wrong_username_or_password": "Nombre de usuario o contraseña incorrectos"
+  }
 }

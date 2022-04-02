@@ -1,4 +1,6 @@
 {
-  "The session has been closed successfully": "The session has been closed successfully",
-  "Wrong username or password": "Wrong username or password"
+  "auth" : {
+    "the_session_has_been_closed_successfully": "The session has been closed successfully",
+    "wrong_username_or_password": "Wrong username or password"
+  }
 }

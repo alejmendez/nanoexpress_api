@@ -1,6 +1,12 @@
 {
-  "User deleted with success" : "Usuario eliminado con éxito",
-  "User updated successfully": "Usuario actualizado con éxito",
-  "There is already a user with the email": "Ya existe un usuario con el correo ${email}",
-  "User not found": "Usuario no encontrado"
+  "user": {
+    "user_deleted_with_success" : "Usuario eliminado con éxito",
+    "user_updated_successfully": "Usuario actualizado con éxito",
+    "user_not_found": "Usuario no encontrado"
+  },
+  "person": {
+    "person_deleted_with_success" : "Persona eliminada con éxito",
+    "person_updated_successfully": "Persona actualizada con éxito",
+    "Person_not_found": "Persona no encontrada"
+  }
 }

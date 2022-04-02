@@ -28,7 +28,7 @@ class GeneratorCommand {
   }
 
   async test() {
-    const name = "Module";
+    const name = "Routes";
     const configGenerator = this.getJsonFileContent("Person.json");
     const generatorSelected = this.registeredGenerators[name];
     await generatorSelected.generate(configGenerator);
@@ -45,8 +45,6 @@ class GeneratorCommand {
     this.registerGenerator(new Model());
     this.registerGenerator(new Exceptions());
   }
-
-  // const { exec } = require("child_process");
 
   registerGenerator(generator: Generator) {
     this.registeredGenerators[generator.getName()] = generator;
@@ -110,7 +108,7 @@ class GeneratorCommand {
       {
         type: "list",
         name: "action",
-        message: __("Select the configuration file to use") + ":",
+        message: __("select_the_configuration_file_to_use") + ":",
         choices: files,
       },
     ]);
@@ -120,21 +118,21 @@ class GeneratorCommand {
 
   protected async promptAskGenerator() {
     const allOptions: { [key: string]: string } = {
-      [__("Generate All")]: "All",
-      [__("Generate Module")]: "Module",
-      [__("Generate Controller")]: "Controller",
-      [__("Generate Service")]: "Service",
-      [__("Generate Routes")]: "Routes",
-      [__("Generate Locales")]: "Locales",
-      [__("Generate Dto")]: "Dto",
-      [__("Generate Model")]: "Model",
-      [__("Generate Exceptions")]: "Exceptions",
+      [__("generate_all")]: "All",
+      [__("generate_module")]: "Module",
+      [__("generate_controller")]: "Controller",
+      [__("generate_service")]: "Service",
+      [__("generate_routes")]: "Routes",
+      [__("generate_locales")]: "Locales",
+      [__("generate_dto")]: "Dto",
+      [__("generate_model")]: "Model",
+      [__("generate_exceptions")]: "Exceptions",
     };
     const answer = await inquirer.prompt([
       {
         type: "checkbox",
         name: "action",
-        message: __("What action do you want to run") + ":",
+        message: __("what_action_do_you_want_to_run") + ":",
         choices: Object.keys(allOptions),
       },
     ]);

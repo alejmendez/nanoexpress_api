@@ -69,7 +69,8 @@ export default class modules {
 
   protected async loadI18n(module: any) {
     const { name } = module;
-    const i18nPath = `@modules/${name}/${this.paths.locales}`;
+
+    const i18nPath = `../modules/${name}/${this.paths.locales}`;
     await i18n.loadTranslations(i18nPath);
   }
 }

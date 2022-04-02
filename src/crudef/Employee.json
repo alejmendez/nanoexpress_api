@@ -1,7 +1,7 @@
 {
   "model": "Employee",
   "modelPluralName": "Employees",
-  "module": "core",
+  "module": "employee",
   "title": "Employee",
   "dateMigration": "2021_06_16_000000",
   "inDB": false,
@@ -73,7 +73,7 @@
       "flex": "sm6"
     },
     {
-      "name": "salary",
+      "name": "wage",
       "type": "number",
       "type_db": "decimal",
       "label": "Salary",

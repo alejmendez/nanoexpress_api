@@ -24,13 +24,13 @@ export default class GeneratorBase implements Generator {
 
   protected getFileContent(
     fileName: string | Array<string>,
-    path: Array<string> = []
+    pathBase: Array<string> = []
   ): string {
-    path = path.length > 0 ? path : [__dirname, "templates"];
+    pathBase = pathBase.length > 0 ? pathBase : [__dirname, "templates"];
     if (!Array.isArray(fileName)) {
       fileName = [fileName];
     }
-    const filePath = path.join(...path, ...fileName);
+    const filePath = path.join(...pathBase, ...fileName);
     return fs.readFileSync(filePath, "utf-8");
   }
 

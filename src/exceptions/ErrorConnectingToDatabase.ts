@@ -3,7 +3,7 @@ import HttpException from "./HttpException";
 
 export default class ErrorConnectingToDatabase extends HttpException {
   constructor() {
-    super(__("Error connecting to database"));
+    super(__("error_connecting_to_database"));
     this.statusCode = 503;
   }
 }

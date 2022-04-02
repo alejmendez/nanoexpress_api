@@ -39,7 +39,8 @@ $ npm run test:cov
 - [ ] Create command create user by cli
 - [ ] Create relationship user person
 - [ ] Create module permission
+- [ ] Refresh JWT token
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT licensed](LICENSE).
