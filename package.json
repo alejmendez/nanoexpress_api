@@ -8,7 +8,7 @@
     "start:dev": "nodemon --exec ts-node -r tsconfig-paths/register src/server.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --config ./test/jest.json",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -25,14 +25,20 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
-    "prettier": "^2.6.0"
+    "prettier": "^2.6.0",
+    "supertest": "^6.2.2",
+    "ts-jest": "^27.1.4",
+    "tsconfig-paths-jest": "^0.0.1"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.0",

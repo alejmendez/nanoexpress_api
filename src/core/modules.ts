@@ -1,10 +1,8 @@
-import LOGGER from "./logger";
-import Benchmark from "./benchmark";
 import { addConfig, config } from "./config";
-import { Router } from "./route";
-import { i18n } from "./i18n";
+import { getRouter } from "./route";
+import { getI18n } from "./i18n";
 
-export default class modules {
+class ModulesManager {
   protected modules: Array<any>;
   protected paths: any = {
     modules: "",
@@ -14,9 +12,7 @@ export default class modules {
     locales: "",
   };
 
-  constructor() {}
-
-  async init() {
+  constructor() {
     this.paths.modules = config("module.dirName");
     this.paths.config = config("module.paths.config");
     this.paths.controllers = config("module.paths.controllers");
@@ -24,18 +20,16 @@ export default class modules {
     this.paths.locales = config("module.paths.locales");
 
     this.modules = config("module.registeredModules");
-
-    for (const module of this.modules) {
-      Benchmark.start();
-      this.loadModule(module);
-      LOGGER.info(`Initialized ${module.name} module [${Benchmark.end()}]`);
-    }
   }
 
-  protected async loadModule(module: any) {
-    await this.loadConfig(module);
-    await this.loadRouter(module);
-    await this.loadI18n(module);
+  async init() {
+    const modulesPromises = [];
+    for (const module of this.modules) {
+      modulesPromises.push(this.loadConfig(module));
+      modulesPromises.push(this.loadRouter(module));
+      modulesPromises.push(this.loadI18n(module));
+    }
+    await Promise.all(modulesPromises);
   }
 
   protected async loadConfig(module: any) {
@@ -54,10 +48,12 @@ export default class modules {
     const { name } = module;
     const routesContent = await this.getRoutesFile(module);
     const controllersPath = `@modules/${name}/${this.paths.controllers}/`;
-    const route = new Router({
+
+    const route = getRouter();
+    route.setConfig({
       controllersPath,
     });
-    await route.init(routesContent);
+    return route.init(routesContent);
   }
 
   protected async getRoutesFile(module: any) {
@@ -71,6 +67,16 @@ export default class modules {
     const { name } = module;
 
     const i18nPath = `../modules/${name}/${this.paths.locales}`;
-    await i18n.loadTranslations(i18nPath);
+    return getI18n().loadTranslations(i18nPath);
   }
 }
+
+let modulesManagerInstance: ModulesManager;
+const getModulesManager = () => {
+  if (!modulesManagerInstance) {
+    modulesManagerInstance = new ModulesManager();
+  }
+  return modulesManagerInstance;
+};
+
+export { ModulesManager, getModulesManager };

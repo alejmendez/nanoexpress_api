@@ -29,8 +29,6 @@ class I18n {
     for (const locale of this.locales) {
       const file = path.join(__dirname, directory, `${locale}.json`);
 
-      console.log({ file });
-
       if (!fs.existsSync(file)) {
         continue;
       }
@@ -58,7 +56,14 @@ class I18n {
   }
 }
 
-const i18n = new I18n();
+let i18n: I18n;
+const getI18n = () => {
+  if (!i18n) {
+    i18n = new I18n();
+  }
+  return i18n;
+};
+
 const __ = (text: string, dictionary: any = {}) => i18n.__(text, dictionary);
 
-export { i18n, __ };
+export { getI18n, __ };

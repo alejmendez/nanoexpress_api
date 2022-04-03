@@ -1,7 +1,9 @@
-import nanoexpress, { HttpRoute } from "nanoexpress";
+import nanoexpress, { HttpRoute, IHttpRequest , IHttpResponse} from "nanoexpress";
 import { padEnd } from "lodash";
 import LOGGER from "./logger";
 import { getNano } from "./nanoexpress";
+
+type HandlerFunction = (req: IHttpRequest, res: IHttpResponse) => Promise<IHttpResponse>;
 
 class Router {
   protected app: nanoexpress.INanoexpressApp;
@@ -12,6 +14,10 @@ class Router {
 
   constructor(config: any = {}) {
     this.app = getNano();
+    this.setConfig(config);
+  }
+
+  setConfig(config: any) {
     this.config = config;
   }
 
@@ -20,16 +26,18 @@ class Router {
   }
 
   public async init(listRoutes: any[]) {
-    await Promise.all(
-      listRoutes.map(async (route) => {
-        if (route.group) {
-          return await this.group(route);
-        }
+    const routes = [];
+    for (const route of listRoutes) {
+      if (route.group) {
+        const groupRoute = this.group(route);
+        routes.push(...groupRoute);
+        continue;
+      }
 
-        const { method, path, handler } = route;
-        await this.registerEndPoint(method, path, handler);
-      })
-    );
+      const { method, path, handler } = route;
+      routes.push(this.registerEndPoint(method, path, handler));
+    }
+    await Promise.all(routes);
   }
 
   public initMessage() {
@@ -48,57 +56,59 @@ class Router {
     });
   }
 
-  protected async group(groupRoute: any) {
+  protected group(groupRoute: any): Array<Promise<boolean>> {
     const pathGroup = groupRoute.path;
-    const groupName = groupRoute.path;
     const routes = groupRoute.routes;
+    const routesGroup: Array<Promise<boolean>> = [];
 
-    return await Promise.all(
-      routes.map(async (route: any) => {
-        let { method, path, handler } = route;
-        path = `${pathGroup}/${path}`;
-        return await this.registerEndPoint(method, path, handler);
-      })
-    );
+    for (const route of routes) {
+      const { method, path, handler } = route;
+      routesGroup.push(this.registerEndPoint(method, `${pathGroup}/${path}`, handler));
+    }
+
+    return routesGroup;
   }
 
   protected async registerEndPoint(
     method: string,
     path: string,
-    handlerName: string
-  ) {
-    const handler = await this.getHandler(handlerName);
+    handler: HandlerFunction
+  ): Promise<boolean> {
     path = path.replace(/\/\//g, "/").replace(/\/+$/, "");
-    this.listRoutes.push([method, path, handlerName]);
+    this.listRoutes.push([method, path]);
     switch (method) {
       case "get":
-        return this.app.get(path, handler);
+        this.app.get(path, handler);
+        break;
       case "post":
-        return this.app.post(path, handler);
+        this.app.post(path, handler);
+        break;
       case "put":
-        return this.app.put(path, handler);
+        this.app.put(path, handler);
+        break;
       case "patch":
-        return this.app.patch(path, handler);
+        this.app.patch(path, handler);
+        break;
       case "del":
-        return this.app.del(path, handler);
+        this.app.del(path, handler);
+        break;
       case "options":
-        return this.app.options(path, handler);
+        this.app.options(path, handler);
+        break;
       case "any":
-        return this.app.any(path, handler);
+        this.app.any(path, handler);
+        break;
     }
-  }
-
-  protected async getHandler(handler: string): Promise<HttpRoute> {
-    const [controllerName, handlerName] = handler.split("@");
-    const controller = await this.getController(controllerName);
-    return controller[handlerName];
-  }
-
-  protected async getController(controllerName: string) {
-    const { controllersPath } = this.config;
-    const controller = await import(`${controllersPath}/${controllerName}`);
-    return controller;
+    return true;
   }
 }
 
-export { Router };
+let routeInstance: Router;
+const getRouter = () => {
+  if (!routeInstance) {
+    routeInstance = new Router();
+  }
+  return routeInstance;
+};
+
+export { Router, getRouter };

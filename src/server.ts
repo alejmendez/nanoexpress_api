@@ -1,9 +1,12 @@
 import { getApp } from "@core/app";
 
 export const app = getApp();
-
-app.init(() => {
-  process.on("SIGINT", () => {
-    app.close();
+export const init = async () => {
+  await app.init(() => {
+    process.on("SIGINT", () => {
+      app.close();
+    });
   });
-});
+};
+
+init();

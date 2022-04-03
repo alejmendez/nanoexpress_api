@@ -1,6 +1,11 @@
 import nanoexpress from "nanoexpress";
 
-const nanoexpressInstance: nanoexpress.INanoexpressApp = nanoexpress();
+let nanoexpressInstance: nanoexpress.INanoexpressApp;
 
-const getNano = () => nanoexpressInstance;
+const getNano = () => {
+  if (!nanoexpressInstance) {
+    nanoexpressInstance = nanoexpress();
+  }
+  return nanoexpressInstance;
+};
 export { getNano };

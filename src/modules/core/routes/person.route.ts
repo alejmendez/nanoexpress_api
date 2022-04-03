@@ -1,3 +1,11 @@
+import {
+  findAll,
+  create,
+  findOne,
+  update,
+  remove,
+} from "../controllers/PersonController";
+
 export default [
   {
     group: "people",
@@ -6,27 +14,27 @@ export default [
       {
         method: "get",
         path: "/",
-        handler: "PersonController@findAll",
+        handler: findAll,
       },
       {
         method: "post",
         path: "/",
-        handler: "PersonController@create",
+        handler: create,
       },
       {
         method: "get",
         path: "/:id",
-        handler: "PersonController@findOne",
+        handler: findOne,
       },
       {
         method: "put",
         path: "/:id",
-        handler: "PersonController@update",
+        handler: update,
       },
       {
         method: "del",
         path: "/:id",
-        handler: "PersonController@remove",
+        handler: remove,
       },
     ],
   },

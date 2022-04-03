@@ -1,3 +1,11 @@
+import {
+  findAll,
+  create,
+  findOne,
+  update,
+  remove,
+} from "../controllers/UserController";
+
 export default [
   {
     group: "users",
@@ -6,27 +14,27 @@ export default [
       {
         method: "get",
         path: "/",
-        handler: "UserController@findAll",
+        handler: findAll,
       },
       {
         method: "post",
         path: "/",
-        handler: "UserController@create",
+        handler: create,
       },
       {
         method: "get",
         path: "/:id",
-        handler: "UserController@findOne",
+        handler: findOne,
       },
       {
         method: "put",
         path: "/:id",
-        handler: "UserController@update",
+        handler: update,
       },
       {
         method: "del",
         path: "/:id",
-        handler: "UserController@remove",
+        handler: remove,
       },
     ],
   },

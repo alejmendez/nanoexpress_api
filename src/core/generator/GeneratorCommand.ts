@@ -2,7 +2,7 @@ import { program } from "commander";
 import inquirer from "inquirer";
 import * as fs from "fs";
 
-import { i18n, __ } from "@core/i18n";
+import { getI18n, __ } from "@core/i18n";
 import { config } from "@core/config";
 
 import Generator from "./interfaces/Generator";
@@ -92,7 +92,7 @@ class GeneratorCommand {
   }
 
   protected async initI18n() {
-    await i18n.loadTranslations(config("i18n.directory"));
+    await getI18n().loadTranslations(config("i18n.directory"));
   }
 
   protected initProgram() {

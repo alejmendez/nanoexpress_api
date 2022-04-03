@@ -5,19 +5,14 @@ export default class AuthRequest extends Request {
   password: string;
   rememberMe: boolean;
 
-  protected override schema: any = {
-    type: "object",
-    properties: {
-      email: { type: "string" },
-      password: { type: "string" },
-      rememberMe: { type: "boolean", nullable: true },
-    },
-    required: ["email", "password"],
-  };
-
   constructor(data: any) {
     super();
-    this.validate(data);
+    const schema: any = {
+      email: ["required", "email", "max:60"],
+      password: ["required", "string"],
+      rememberMe: ["boolean"],
+    };
+    this.validate(schema, data);
     this.email = data.email.toLowerCase();
     this.password = data.password;
     this.rememberMe = !!data.rememberMe;
