@@ -14,6 +14,7 @@ const jwtExpirationTimeWithRememberMe = config(
 const jwtExpiresIn = config("jwt.expiresIn");
 const jwtAlgorithm = config("jwt.algorithm");
 const jwtSecret = config("jwt.secret");
+
 export default class LoginService {
   protected userService: UserService;
   constructor() {

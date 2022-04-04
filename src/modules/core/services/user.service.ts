@@ -1,4 +1,5 @@
-import { getRepository } from "typeorm";
+import { Repository } from "typeorm/repository/Repository";
+import { getDbConnection } from "@core/database";
 import { config } from "@core/config";
 import { paginate, PaginateQuery } from "@core/paginate";
 
@@ -10,11 +11,12 @@ import UserNotFound from "../exceptions/UserNotFound";
 
 const validationTokenSize = Number(config("user.validationTokenSize"));
 export default class UserService {
-  protected repository: any;
+  protected repository: Repository<User>;
   protected validationTokenSize: Number = validationTokenSize;
 
-  constructor() {
-    this.repository = getRepository(User);
+  public async initRepository() {
+    const conn = await getDbConnection();
+    this.repository = conn.getRepository(User);
   }
 
   public async findAll(query: PaginateQuery) {
@@ -43,7 +45,7 @@ export default class UserService {
 
     user.password = await hashPassword(user.password);
 
-    user.verificationToken = generateRandomString(this.validationTokenSize);
+    user.verification_token = generateRandomString(this.validationTokenSize);
     return this.repository.save(user);
   }
 
@@ -52,7 +54,7 @@ export default class UserService {
     return user !== null && user !== undefined;
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User | undefined> {
     const user = await this.repository.findOne({ email });
     return user;
   }
@@ -81,3 +83,5 @@ export default class UserService {
     return true;
   }
 }
+
+export const userService = new UserService();

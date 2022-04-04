@@ -28,11 +28,21 @@ const format: winston.Logform.Format = winston.format.combine(
   )
 );
 
+const myLogTransports = [];
+
+if (process.env.NODE_ENV == "production") {
+  myLogTransports.push(
+    new winston.transports.File({ filename: "somefile.log" })
+  );
+} else {
+  myLogTransports.push(new transports.Console({ level: "error" }));
+}
+
 const LOGGER: winston.Logger = winston.createLogger({
   level: config("logger.level"),
   levels,
   format,
-  transports: [new transports.Console()],
+  transports: myLogTransports,
 });
 
 export default LOGGER;

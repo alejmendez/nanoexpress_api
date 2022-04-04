@@ -3,14 +3,13 @@ import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import { __ } from "@core/i18n";
 import { RequestToPaginateQuery } from "@core/paginate/RequestToPaginateQuery";
 
-import UserService from "../services/user.service";
+import { userService } from "../services/user.service";
 import UserResponse from "../dto/UserResponse.dto";
 import UserRequest from "../dto/UserRequest.dto";
 
-const userService = new UserService();
 const findAll = async (req: IHttpRequest, res: IHttpResponse) => {
   const query = RequestToPaginateQuery(req);
-  const users = await userService.findAll(query);
+  const users: any = await userService.findAll(query);
   users.data = users.data.map((user: any) => new UserResponse(user));
   return res.json(users);
 };

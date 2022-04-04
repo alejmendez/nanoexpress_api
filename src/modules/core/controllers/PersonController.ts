@@ -3,14 +3,13 @@ import { IHttpRequest, IHttpResponse } from "nanoexpress";
 import { __ } from "@core/i18n";
 import { RequestToPaginateQuery } from "@core/paginate/RequestToPaginateQuery";
 
-import PersonService from "../services/person.service";
+import { personService } from "../services/person.service";
 import PersonResponse from "../dto/PersonResponse.dto";
 import PersonRequest from "../dto/PersonRequest.dto";
 
-const personService = new PersonService();
 const findAll = async (req: IHttpRequest, res: IHttpResponse) => {
   const query = RequestToPaginateQuery(req);
-  const persons = await personService.findAll(query);
+  const persons: any = await personService.findAll(query);
   persons.data = persons.data.map((person: any) => new PersonResponse(person));
   return res.json(persons);
 };

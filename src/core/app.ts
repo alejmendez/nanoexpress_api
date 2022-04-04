@@ -12,7 +12,7 @@ import { initConnection, getDbConnection } from "./database";
 Benchmark.start();
 import { getNano } from "./nanoexpress";
 
-import { getModulesManager } from "./modules";
+import ModulesManager from "../modules/ModulesManager";
 import handler500 from "./errors/handler500";
 import handler404 from "./errors/handler404";
 
@@ -27,6 +27,7 @@ LOGGER.info(`Importing dependencies [${Benchmark.end()}]`);
 
 class App {
   protected nano: INanoexpressApp;
+  public port: number;
 
   public async init(callback: () => void) {
     await this.initInstances();
@@ -40,16 +41,14 @@ class App {
     this.nano = getNano();
     LOGGER.info(`Nanoexpress initialization [${Benchmark.end()}]`);
 
-    await Promise.all(
-      [
-        initConnection(),
-        getI18n().loadTranslations(config("i18n.directory"))
-      ]
-    );
-
-    await this.initModules();
+    await Promise.all([
+      initConnection(),
+      getI18n().loadTranslations(config("i18n.directory")),
+    ]);
 
     this.initMiddleware();
+
+    await this.initModules();
 
     this.initErrorHandler();
   }
@@ -64,8 +63,7 @@ class App {
 
   protected async initModules() {
     Benchmark.start();
-    const modules = getModulesManager();
-    await modules.init();
+    await ModulesManager();
     LOGGER.info(`Modules initialization [${Benchmark.end()}]`);
   }
 
@@ -78,12 +76,23 @@ class App {
     const port = config("server.port");
     const url = config("server.url");
     this.nano.listen(port);
+    this.port = port;
     LOGGER.info(`App is running at ${url}:${port}`);
   }
 
-  public close() {
+  public address() {
+    return {
+      address: this.nano.address,
+      family: "http",
+      port: this.port,
+    };
+  }
+
+  public async close() {
     this.nano.close();
     LOGGER.info("App is down");
+    const conn = await getDbConnection();
+    conn.close();
   }
 }
 
@@ -95,4 +104,4 @@ const getApp = () => {
   return AppInstance;
 };
 
-export { getApp, getNano, getDbConnection };
+export { App, getApp, getNano, getDbConnection };

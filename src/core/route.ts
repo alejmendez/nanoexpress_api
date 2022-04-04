@@ -1,9 +1,16 @@
-import nanoexpress, { HttpRoute, IHttpRequest , IHttpResponse} from "nanoexpress";
+import nanoexpress, {
+  HttpRoute,
+  IHttpRequest,
+  IHttpResponse,
+} from "nanoexpress";
 import { padEnd } from "lodash";
 import LOGGER from "./logger";
 import { getNano } from "./nanoexpress";
 
-type HandlerFunction = (req: IHttpRequest, res: IHttpResponse) => Promise<IHttpResponse>;
+type HandlerFunction = (
+  req: IHttpRequest,
+  res: IHttpResponse
+) => Promise<IHttpResponse>;
 
 class Router {
   protected app: nanoexpress.INanoexpressApp;
@@ -63,7 +70,9 @@ class Router {
 
     for (const route of routes) {
       const { method, path, handler } = route;
-      routesGroup.push(this.registerEndPoint(method, `${pathGroup}/${path}`, handler));
+      routesGroup.push(
+        this.registerEndPoint(method, `${pathGroup}/${path}`, handler)
+      );
     }
 
     return routesGroup;

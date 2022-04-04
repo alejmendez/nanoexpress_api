@@ -4,28 +4,35 @@ import ErrorConnectingToDatabase from "@exceptions/ErrorConnectingToDatabase";
 import LOGGER from "./logger";
 import { config } from "./config";
 
-let connection: Connection;
+let conn: Connection;
+let connectionInitialized = false;
 const initConnection = async () => {
+  if (connectionInitialized) {
+    return conn;
+  }
+
   try {
     Benchmark.start();
-    connection = await createConnection(config("database"));
-    if (connection === undefined) {
+    conn = await createConnection(config("database"));
+    if (conn === undefined) {
       throw new ErrorConnectingToDatabase();
     }
+    connectionInitialized = true;
+
     LOGGER.info(`Connection to database established [${Benchmark.end()}]`);
 
     Benchmark.start();
-    await connection.synchronize();
+    await conn.synchronize();
     LOGGER.info(`Database synchronized [${Benchmark.end()}]`);
-
-    return connection;
   } catch (error) {
     LOGGER.error(error);
   }
+
+  return conn;
 };
 
-const getDbConnection = () => {
-  return connection;
+const getDbConnection = async () => {
+  return await initConnection();
 };
 
 export { initConnection, getDbConnection };

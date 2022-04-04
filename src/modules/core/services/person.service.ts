@@ -1,4 +1,5 @@
-import { getRepository } from "typeorm";
+import { Repository } from "typeorm/repository/Repository";
+import { getDbConnection } from "@core/database";
 import { paginate, PaginateQuery } from "@core/paginate";
 
 import { Person } from "../entities/person.entity";
@@ -6,10 +7,11 @@ import PersonRequest from "../dto/PersonRequest.dto";
 import PersonNotFound from "../exceptions/PersonNotFound";
 
 export default class PersonService {
-  protected repository: any;
+  protected repository: Repository<Person>;
 
-  constructor() {
-    this.repository = getRepository(Person);
+  public async initRepository() {
+    const conn = await getDbConnection();
+    this.repository = conn.getRepository(Person);
   }
 
   public async findAll(query: PaginateQuery) {
@@ -30,7 +32,6 @@ export default class PersonService {
         "civil_status",
         "contact_options",
         "address",
-        "address2",
         "postcode",
         "city",
         "state",
@@ -57,7 +58,6 @@ export default class PersonService {
         "civil_status",
         "contact_options",
         "address",
-        "address2",
         "postcode",
         "city",
         "state",
@@ -97,3 +97,5 @@ export default class PersonService {
     return true;
   }
 }
+
+export const personService = new PersonService();
