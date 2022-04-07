@@ -3,7 +3,7 @@ import { sign, verify } from "jsonwebtoken";
 import { config } from "@core/config";
 
 import { hashCompare } from "@modules/core/utils";
-import UserService from "@modules/core/services/user.service";
+import { userService } from "@modules/core/services/user.service";
 
 import WrongUsernameOrPassword from "../exceptions/WrongUsernameOrPassword";
 import UserNotFound from "../exceptions/UserNotFound";
@@ -16,17 +16,12 @@ const jwtAlgorithm = config("jwt.algorithm");
 const jwtSecret = config("jwt.secret");
 
 export default class LoginService {
-  protected userService: UserService;
-  constructor() {
-    this.userService = new UserService();
-  }
-
   public async login(
     email: string,
     password: string,
     rememberMe: boolean = false
   ): Promise<string> {
-    const user = await this.userService.findOneByEmail(email);
+    const user = await userService.findOneByEmail(email);
 
     if (!user) {
       throw new WrongUsernameOrPassword();
@@ -56,7 +51,7 @@ export default class LoginService {
 
   public async getCurrentUser(token: string): Promise<any> {
     const payload = this.verifyToken(token);
-    const user = await this.userService.findOne(payload.userId);
+    const user = await userService.findOne(payload.userId);
 
     if (!user) {
       throw new UserNotFound();

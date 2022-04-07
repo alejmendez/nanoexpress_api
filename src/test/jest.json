@@ -1,0 +1,16 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".test.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "setupFilesAfterEnv": ["<rootDir>/testHelper.ts"],
+  "moduleNameMapper": {
+    "^@core/(.*)$": ["<rootDir>/../core/$1"],
+    "^@middlewares/(.*)$": ["<rootDir>/../middlewares/$1"],
+    "^@exceptions/(.*)$": ["<rootDir>/../exceptions/$1"],
+    "^@modules/(.*)$": ["<rootDir>/../modules/$1"]
+  }
+}

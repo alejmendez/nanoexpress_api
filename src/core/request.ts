@@ -2,37 +2,35 @@ import { __ } from "./i18n";
 
 import ValidationError from "@exceptions/ValidationError";
 import {
-  required,
-  email,
-  min,
-  max,
-  numeric,
-  integer,
-  boolean,
-  exists,
-  unique,
+  RequiredValidator,
+  EmailValidator,
+  MinValidator,
+  MaxValidator,
+  NumericValidator,
+  IntegerValidator,
+  BooleanValidator,
 } from "./validators";
 import Validator from "./validators/Validator";
 
 const validators: { [key: string]: Validator } = {
-  required: new required(),
-  email: new email(),
-  min: new min(),
-  max: new max(),
-  numeric: new numeric(),
-  integer: new integer(),
-  boolean: new boolean(),
-  exists: new exists(),
-  unique: new unique(),
-};
-
-const getValidator = (validatorName: string) => {
-  return validators[validatorName];
+  required: new RequiredValidator(),
+  email: new EmailValidator(),
+  min: new MinValidator(),
+  max: new MaxValidator(),
+  numeric: new NumericValidator(),
+  integer: new IntegerValidator(),
+  boolean: new BooleanValidator(),
 };
 
 export default class Request {
+  protected valid: boolean;
+
+  public isValid() {
+    return this.valid;
+  }
+
   protected validate(schema: any, data: any) {
-    let valid = true;
+    this.valid = true;
     const errors: any = {};
 
     Object.entries(schema).map((entry) => {
@@ -41,16 +39,14 @@ export default class Request {
       const value = data[nameField];
       const error = this.validateField(rules, value, nameField);
       if (error.length) {
-        valid = false;
+        this.valid = false;
         errors[nameField] = error;
       }
     });
 
-    if (valid) {
-      return;
+    if (!this.valid) {
+      throw new ValidationError(errors);
     }
-
-    throw new ValidationError(errors);
   }
 
   protected validateField(rules: Array<string>, value: any, nameField: string) {
@@ -59,7 +55,7 @@ export default class Request {
     rules.map((rule: any) => {
       let [ruleName, args] = rule.split(":");
       args = args ? args.split(",") : [];
-      const validator = getValidator(ruleName);
+      const validator = this.getValidator(ruleName);
       const result = validator.validate(nameField, value, args);
       if (result !== true) {
         errors.push(result);
@@ -67,5 +63,9 @@ export default class Request {
     });
 
     return errors;
+  }
+
+  protected getValidator(validatorName: string) {
+    return validators[validatorName];
   }
 }

@@ -1,8 +1,7 @@
 import { __ } from "@core/i18n";
-import isBoolean from "validator/lib/isBoolean";
 import Validator from "./Validator";
 
-export default class BooleanValidator implements Validator {
+export default class PasswordValidator implements Validator {
   constructor() {}
 
   public validate(
@@ -10,9 +9,9 @@ export default class BooleanValidator implements Validator {
     value: any,
     args: Array<any>
   ): string | boolean {
-    if (isBoolean(value)) {
+    if (false) {
       return true;
     }
-    return __("validator.boolean", { nameField });
+    return __("validator.password", { nameField });
   }
 }

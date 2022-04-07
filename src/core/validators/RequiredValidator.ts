@@ -7,7 +7,7 @@ export default class RequiredValidator implements Validator {
     value: any,
     args: Array<any>
   ): string | boolean {
-    if (false) {
+    if (value === undefined || value === null || value === "") {
       return __("validator.required", { nameField });
     }
     return true;

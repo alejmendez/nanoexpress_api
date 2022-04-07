@@ -1,8 +1,5 @@
 import Benchmark from "./benchmark";
 
-import dotenv from "dotenv";
-dotenv.config();
-
 import LOGGER from "./logger";
 import { INanoexpressApp } from "nanoexpress";
 
@@ -13,8 +10,8 @@ Benchmark.start();
 import { getNano } from "./nanoexpress";
 
 import ModulesManager from "../modules/ModulesManager";
-import handler500 from "./errors/handler500";
-import handler404 from "./errors/handler404";
+import HttpErrorHandler from "./errors/HttpErrorHandler";
+import HttpNotFoundHandler from "./errors/HttpNotFoundHandler";
 
 import { BodyParserMiddleware } from "@middlewares/BodyParserMiddleware";
 import { LoggerMiddleware } from "@middlewares/LoggerMiddleware";
@@ -68,8 +65,8 @@ class App {
   }
 
   protected initErrorHandler() {
-    this.nano.setErrorHandler(handler500);
-    this.nano.setNotFoundHandler(handler404);
+    this.nano.setErrorHandler(HttpErrorHandler);
+    this.nano.setNotFoundHandler(HttpNotFoundHandler);
   }
 
   public listen() {

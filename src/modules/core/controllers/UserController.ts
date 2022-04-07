@@ -5,13 +5,13 @@ import { RequestToPaginateQuery } from "@core/paginate/RequestToPaginateQuery";
 
 import { userService } from "../services/user.service";
 import UserResponse from "../dto/UserResponse.dto";
+import UserListResponse from "../dto/UserListResponse.dto";
 import UserRequest from "../dto/UserRequest.dto";
 
 const findAll = async (req: IHttpRequest, res: IHttpResponse) => {
   const query = RequestToPaginateQuery(req);
-  const users: any = await userService.findAll(query);
-  users.data = users.data.map((user: any) => new UserResponse(user));
-  return res.json(users);
+  const users = await userService.findAll(query);
+  return res.json(new UserListResponse(users));
 };
 
 const findOne = async (req: IHttpRequest, res: IHttpResponse) => {

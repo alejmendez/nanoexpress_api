@@ -8,7 +8,7 @@ import UserResponse from "@modules/core/dto/UserResponse.dto";
 
 const loginService = new LoginService();
 const login = async (req: IHttpRequest, res: IHttpResponse) => {
-  const request = new AuthRequest(req.body);
+  const request = new AuthRequest(req, res);
   const token = await loginService.login(
     request.email,
     request.password,

@@ -2,7 +2,7 @@ import { __ } from "@core/i18n";
 import isLength from "validator/lib/isLength";
 import Validator from "./Validator";
 
-export default class MinValidator implements Validator {
+export default class MaxValidator implements Validator {
   constructor() {}
 
   public validate(
@@ -10,10 +10,10 @@ export default class MinValidator implements Validator {
     value: any,
     args: Array<any>
   ): string | boolean {
-    const [min] = args;
-    if (isLength(value, { min })) {
+    const [max] = args;
+    if (isLength(value, { max })) {
       return true;
     }
-    return __("validator.min", { nameField });
+    return __("validator.max", { nameField, max });
   }
 }

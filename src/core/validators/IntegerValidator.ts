@@ -8,7 +8,7 @@ export default class IntegerValidator implements Validator {
   public validate(
     nameField: string,
     value: any,
-    args: Array<any>
+    _: Array<any>
   ): string | boolean {
     if (isInt(value)) {
       return true;
